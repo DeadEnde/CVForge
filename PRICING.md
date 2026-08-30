@@ -3,7 +3,7 @@
 ## Tiers
 | Tier | Price | What you get |
 |---|---|---|
-| **Free** | $0 | Local MCP runs, all 23 templates, offline playground |
+| **Free** | $0 | Local MCP runs, all 71 templates, offline playground |
 | **Pro** | **$15 / mo** | Hosted API, PDF/DOCX batch, custom fonts/themes, priority render |
 | **Agency / Team** | **$49 / mo** | White-label branding, 10 seats, API keys, template kits |
 

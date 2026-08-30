@@ -3,7 +3,7 @@
 # ⚒️ CVForge — paste a CV, get a stunning portfolio
 
 > CV (PDF / DOCX / Markdown / plain text) → a beautiful **one-page portfolio**,
-> themed to the person's domain. English **and Arabic (RTL)**. **23 templates** with a live gallery — clients can browse every theme rendered by the real engine.
+> themed to the person's domain — **59 domains detected automatically**. English **and Arabic (RTL)**. **71 templates** with a live gallery — clients can browse every theme rendered by the real engine.
 > One engine, three ways to use it: **MCP server**, **REST API** (Vercel-hosted),
 > and a **100% client-side offline playground**.
 
@@ -18,13 +18,13 @@ plus `prefers-reduced-motion` support.
 
 | | |
 |---|---|
-| **Smart parsing** | extracts name, contacts, skills, experience, projects, education — and auto-detects the domain |
-| **23 templates** | 11 domain themes (Neon Code, Studio Rose, Golden Hour, Growth Green, Data Pulse, Executive, Scholar, Fintech, Care, Builder, Aurora) + 12 style themes (Snow Minimal, Paper & Ink, Corporate Pro, Playful Pastel, Neon Cyber, Retro Terminal, Luxury Gold, Liquid Glass, Noir Mono, Deep Ocean, Deep Forest, Royal Violet) |
+| **Smart parsing** | extracts name, contacts, skills, experience, projects, education — and auto-detects **59 domains** (AI, e-commerce, chef, lawyer, economist...) |
+| **71 templates** | every field: AI/ML, programming, cyber, cloud, game, blockchain, mobile, devops, robotics; economy, accounting, e-commerce, business, founder, sales, consulting, logistics, real estate, HR; health (doctor, psychology, nutrition, fitness, vet); creative (UX, interior, fashion, video, music, art, writing, journalism, translation, content, architecture); research/science/history; culinary, hospitality, tourism; trades, beauty, aviation, agriculture, social, government, legal |
 | **Arabic RTL** | `language: "ar"` → `html lang="ar" dir="rtl"`, full direction-aware layout |
 | **PDF / DOCX / MD / TXT** | server-side extraction (pypdf + python-docx) or client-side paste |
 | **Private by design** | it's your CV — run the engine locally; nothing is stored anywhere |
 | **Motion-first UI** | aurora blobs, typing hero, glowing laptop preview, sparkle "forge" animation |
-| **Template gallery** | every template rendered live client-side (23 real previews — no screenshots) |
+| **Template gallery** | 71 real previews rendered client-side, filter by Light/Dark/Mono/Serif or by field (Tech, Business, Health, Creative, Education, Hospitality, Service, Legal) |
 
 ## 🧰 Tools (MCP — 4)
 
@@ -33,7 +33,7 @@ plus `prefers-reduced-motion` support.
 | `parse_cv_tool(source)` | CV → structured JSON (name, contacts, skills, experience, projects, domain) |
 | `generate_portfolio_tool(cv, dir, theme, language)` | writes a self-contained `index.html` |
 | `portfolio_preview(cv, theme, language)` | returns HTML inline (preview / embed) |
-| `list_themes()` | all 23 design templates |
+| `list_themes()` | all 71 design templates |
 
 ## 🚀 Quick start (local)
 

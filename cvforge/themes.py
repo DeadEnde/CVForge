@@ -4,35 +4,63 @@ THEMES: dict[str, dict] = {
     "developer": {
         "name": "Neon Code",
         "palette": {
-            "bg": "#070b14", "bg2": "#0b1220", "card": "rgba(255,255,255,0.05)",
-            "accent": "#6366f1", "accent2": "#22d3ee", "text": "#e7ecf6", "muted": "#8b93a7",
+            "bg": "#070b14",
+            "bg2": "#0b1220",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#6366f1",
+            "accent2": "#22d3ee",
+            "text": "#e7ecf6",
+            "muted": "#8b93a7",
+            "bt": "#fff"
         },
         "gradient": ["#6366f1", "#22d3ee", "#a855f7"],
-        "font_style": "mono-touch", "radius": "18px",
+        "font_style": "mono", "radius": "18px",
     },
     "designer": {
         "name": "Studio Rose",
         "palette": {
-            "bg": "#140a12", "bg2": "#1b0e18", "card": "rgba(255,255,255,0.06)",
-            "accent": "#f472b6", "accent2": "#fb923c", "text": "#f8edf4", "muted": "#a3909e",
+            "bg": "#140a12",
+            "bg2": "#1b0e18",
+            "card": "rgba(255,255,255,0.06)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#f472b6",
+            "accent2": "#fb923c",
+            "text": "#f8edf4",
+            "muted": "#a3909e",
+            "bt": "#fff"
         },
         "gradient": ["#f472b6", "#fb923c", "#facc15"],
-        "font_style": "serif-touch", "radius": "28px",
+        "font_style": "serif", "radius": "28px",
     },
     "photographer": {
         "name": "Golden Hour",
         "palette": {
-            "bg": "#0d0b09", "bg2": "#14110c", "card": "rgba(255,255,255,0.05)",
-            "accent": "#f59e0b", "accent2": "#fde68a", "text": "#f5efe4", "muted": "#9c9284",
+            "bg": "#0d0b09",
+            "bg2": "#14110c",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#f59e0b",
+            "accent2": "#fde68a",
+            "text": "#f5efe4",
+            "muted": "#9c9284",
+            "bt": "#fff"
         },
         "gradient": ["#f59e0b", "#fbbf24", "#78716c"],
-        "font_style": "elegant", "radius": "12px",
+        "font_style": "serif", "radius": "12px",
     },
     "marketer": {
         "name": "Growth Green",
         "palette": {
-            "bg": "#06120e", "bg2": "#0a1a14", "card": "rgba(255,255,255,0.05)",
-            "accent": "#34d399", "accent2": "#4ade80", "text": "#eaf6ef", "muted": "#8aa79a",
+            "bg": "#06120e",
+            "bg2": "#0a1a14",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#34d399",
+            "accent2": "#4ade80",
+            "text": "#eaf6ef",
+            "muted": "#8aa79a",
+            "bt": "#fff"
         },
         "gradient": ["#34d399", "#4ade80", "#a3e635"],
         "font_style": "modern", "radius": "20px",
@@ -40,26 +68,47 @@ THEMES: dict[str, dict] = {
     "data": {
         "name": "Data Pulse",
         "palette": {
-            "bg": "#080a12", "bg2": "#0c101e", "card": "rgba(255,255,255,0.05)",
-            "accent": "#818cf8", "accent2": "#2dd4bf", "text": "#e8ecf7", "muted": "#8a92a8",
+            "bg": "#080a12",
+            "bg2": "#0c101e",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#818cf8",
+            "accent2": "#2dd4bf",
+            "text": "#e8ecf7",
+            "muted": "#8a92a8",
+            "bt": "#fff"
         },
         "gradient": ["#6366f1", "#2dd4bf", "#0ea5e9"],
-        "font_style": "mono-touch", "radius": "16px",
+        "font_style": "mono", "radius": "16px",
     },
     "manager": {
         "name": "Executive",
         "palette": {
-            "bg": "#0c0d10", "bg2": "#12141a", "card": "rgba(255,255,255,0.05)",
-            "accent": "#f8fafc", "accent2": "#94a3b8", "text": "#f1f5f9", "muted": "#94a3b8",
+            "bg": "#0c0d10",
+            "bg2": "#12141a",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#f8fafc",
+            "accent2": "#94a3b8",
+            "text": "#f1f5f9",
+            "muted": "#94a3b8",
+            "bt": "#fff"
         },
         "gradient": ["#e2e8f0", "#94a3b8", "#475569"],
-        "font_style": "minimal", "radius": "10px",
+        "font_style": "modern", "radius": "10px",
     },
     "teacher": {
         "name": "Scholar",
         "palette": {
-            "bg": "#0d1014", "bg2": "#131820", "card": "rgba(255,255,255,0.05)",
-            "accent": "#60a5fa", "accent2": "#fbbf24", "text": "#eef2f7", "muted": "#8f9aad",
+            "bg": "#0d1014",
+            "bg2": "#131820",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#60a5fa",
+            "accent2": "#fbbf24",
+            "text": "#eef2f7",
+            "muted": "#8f9aad",
+            "bt": "#fff"
         },
         "gradient": ["#60a5fa", "#fbbf24", "#34d399"],
         "font_style": "serif", "radius": "14px",
@@ -67,8 +116,15 @@ THEMES: dict[str, dict] = {
     "finance": {
         "name": "Fintech",
         "palette": {
-            "bg": "#0a0f0c", "bg2": "#101712", "card": "rgba(255,255,255,0.05)",
-            "accent": "#10b981", "accent2": "#facc15", "text": "#ecf5ef", "muted": "#8fa295",
+            "bg": "#0a0f0c",
+            "bg2": "#101712",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#10b981",
+            "accent2": "#facc15",
+            "text": "#ecf5ef",
+            "muted": "#8fa295",
+            "bt": "#fff"
         },
         "gradient": ["#10b981", "#facc15", "#34d399"],
         "font_style": "modern", "radius": "12px",
@@ -76,8 +132,15 @@ THEMES: dict[str, dict] = {
     "health": {
         "name": "Care",
         "palette": {
-            "bg": "#0a0f12", "bg2": "#0f161b", "card": "rgba(255,255,255,0.05)",
-            "accent": "#38bdf8", "accent2": "#f472b6", "text": "#eaf3f8", "muted": "#8aa0ad",
+            "bg": "#0a0f12",
+            "bg2": "#0f161b",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#38bdf8",
+            "accent2": "#f472b6",
+            "text": "#eaf3f8",
+            "muted": "#8aa0ad",
+            "bt": "#fff"
         },
         "gradient": ["#38bdf8", "#f472b6", "#a5b4fc"],
         "font_style": "modern", "radius": "18px",
@@ -85,17 +148,31 @@ THEMES: dict[str, dict] = {
     "engineer": {
         "name": "Builder",
         "palette": {
-            "bg": "#0b0e10", "bg2": "#121619", "card": "rgba(255,255,255,0.05)",
-            "accent": "#f97316", "accent2": "#fbbf24", "text": "#f2f4f6", "muted": "#96a0a8",
+            "bg": "#0b0e10",
+            "bg2": "#121619",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#f97316",
+            "accent2": "#fbbf24",
+            "text": "#f2f4f6",
+            "muted": "#96a0a8",
+            "bt": "#fff"
         },
         "gradient": ["#f97316", "#fbbf24", "#ef4444"],
-        "font_style": "industrial", "radius": "10px",
+        "font_style": "modern", "radius": "10px",
     },
     "generic": {
         "name": "Aurora",
         "palette": {
-            "bg": "#0a0c14", "bg2": "#10131f", "card": "rgba(255,255,255,0.05)",
-            "accent": "#a78bfa", "accent2": "#f472b6", "text": "#eef0f8", "muted": "#8d93a8",
+            "bg": "#0a0c14",
+            "bg2": "#10131f",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(255,255,255,0.09)",
+            "accent": "#a78bfa",
+            "accent2": "#f472b6",
+            "text": "#eef0f8",
+            "muted": "#8d93a8",
+            "bt": "#fff"
         },
         "gradient": ["#a78bfa", "#f472b6", "#38bdf8"],
         "font_style": "modern", "radius": "20px",
@@ -130,7 +207,7 @@ THEMES: dict[str, dict] = {
             "bt": "#ffffff"
         },
         "gradient": ["#c2410c", "#b45309", "#78716c"],
-        "font_style": "elegant", "radius": "6px",
+        "font_style": "serif", "radius": "6px",
     },
     "corporate": {
         "name": "Corporate Pro",
@@ -174,10 +251,11 @@ THEMES: dict[str, dict] = {
             "accent": "#ff2fd6",
             "accent2": "#00f0ff",
             "text": "#f2eaff",
-            "muted": "#9d8fd0"
+            "muted": "#9d8fd0",
+            "bt": "#fff"
         },
         "gradient": ["#ff2fd6", "#00f0ff", "#7c3aed"],
-        "font_style": "mono-touch", "radius": "6px",
+        "font_style": "mono", "radius": "6px",
     },
     "retro": {
         "name": "Retro Terminal",
@@ -189,10 +267,11 @@ THEMES: dict[str, dict] = {
             "accent": "#00ff41",
             "accent2": "#39ff14",
             "text": "#d9ffdd",
-            "muted": "#6da372"
+            "muted": "#6da372",
+            "bt": "#fff"
         },
         "gradient": ["#00ff41", "#39ff14", "#4ade80"],
-        "font_style": "mono-touch", "radius": "4px",
+        "font_style": "mono", "radius": "4px",
     },
     "gold": {
         "name": "Luxury Gold",
@@ -208,7 +287,7 @@ THEMES: dict[str, dict] = {
             "bt": "#1a1206"
         },
         "gradient": ["#b8860b", "#eab308", "#fef3c7"],
-        "font_style": "elegant", "radius": "4px",
+        "font_style": "serif", "radius": "4px",
     },
     "glass": {
         "name": "Liquid Glass",
@@ -220,7 +299,8 @@ THEMES: dict[str, dict] = {
             "accent": "#5eead4",
             "accent2": "#a5b4fc",
             "text": "#f0f4ff",
-            "muted": "#9aa7d8"
+            "muted": "#9aa7d8",
+            "bt": "#fff"
         },
         "gradient": ["#22d3ee", "#818cf8", "#f472b6"],
         "font_style": "modern", "radius": "26px",
@@ -235,7 +315,8 @@ THEMES: dict[str, dict] = {
             "accent": "#ffffff",
             "accent2": "#a3a3a3",
             "text": "#f5f5f5",
-            "muted": "#9ca3af"
+            "muted": "#9ca3af",
+            "bt": "#fff"
         },
         "gradient": ["#525252", "#737373", "#a3a3a3"],
         "font_style": "modern", "radius": "2px",
@@ -250,7 +331,8 @@ THEMES: dict[str, dict] = {
             "accent": "#22d3ee",
             "accent2": "#60a5fa",
             "text": "#e8f6ff",
-            "muted": "#8fb0cc"
+            "muted": "#8fb0cc",
+            "bt": "#fff"
         },
         "gradient": ["#0ea5e9", "#22d3ee", "#3b82f6"],
         "font_style": "modern", "radius": "22px",
@@ -265,7 +347,8 @@ THEMES: dict[str, dict] = {
             "accent": "#34d399",
             "accent2": "#a3e635",
             "text": "#eaf7ee",
-            "muted": "#93b5a0"
+            "muted": "#93b5a0",
+            "bt": "#fff"
         },
         "gradient": ["#10b981", "#84cc16", "#22c55e"],
         "font_style": "modern", "radius": "18px",
@@ -280,13 +363,782 @@ THEMES: dict[str, dict] = {
             "accent": "#a78bfa",
             "accent2": "#f0abfc",
             "text": "#f4efff",
-            "muted": "#ab9bd8"
+            "muted": "#ab9bd8",
+            "bt": "#fff"
         },
         "gradient": ["#7c3aed", "#a78bfa", "#f0abfc"],
-        "font_style": "serif-touch", "radius": "22px",
+        "font_style": "serif", "radius": "22px",
     },
-
+    "ai": {
+        "name": "Neural AI",
+        "palette": {
+            "bg": "#060913",
+            "bg2": "#0a0f22",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(139,92,246,0.28)",
+            "accent": "#8b5cf6",
+            "accent2": "#22d3ee",
+            "text": "#ece9ff",
+            "muted": "#9a94c9",
+            "bt": "#fff"
+        },
+        "gradient": ["#8b5cf6", "#22d3ee", "#6366f1"],
+        "font_style": "mono", "radius": "16px",
+    },
+    "cybersecurity": {
+        "name": "Zero Day",
+        "palette": {
+            "bg": "#070a10",
+            "bg2": "#0c1018",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(34,197,94,0.25)",
+            "accent": "#22c55e",
+            "accent2": "#ef4444",
+            "text": "#e8f5ec",
+            "muted": "#8fa596",
+            "bt": "#052e16"
+        },
+        "gradient": ["#22c55e", "#16a34a", "#ef4444"],
+        "font_style": "mono", "radius": "8px",
+    },
+    "cloud": {
+        "name": "Cloud Nine",
+        "palette": {
+            "bg": "#081120",
+            "bg2": "#0c1a30",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(56,189,248,0.25)",
+            "accent": "#38bdf8",
+            "accent2": "#a5b4fc",
+            "text": "#eaf4ff",
+            "muted": "#8fa3c2",
+            "bt": "#fff"
+        },
+        "gradient": ["#38bdf8", "#60a5fa", "#22d3ee"],
+        "font_style": "modern", "radius": "22px",
+    },
+    "game": {
+        "name": "Pixel Arcade",
+        "palette": {
+            "bg": "#150a2b",
+            "bg2": "#1b1038",
+            "card": "rgba(255,255,255,0.06)",
+            "line": "rgba(244,114,182,0.3)",
+            "accent": "#f472b6",
+            "accent2": "#fbbf24",
+            "text": "#f7ecff",
+            "muted": "#ab93c9",
+            "bt": "#fff"
+        },
+        "gradient": ["#f472b6", "#fbbf24", "#8b5cf6"],
+        "font_style": "mono", "radius": "10px",
+    },
+    "blockchain": {
+        "name": "Chain Block",
+        "palette": {
+            "bg": "#0d0a06",
+            "bg2": "#14100a",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(245,158,11,0.28)",
+            "accent": "#f59e0b",
+            "accent2": "#fde68a",
+            "text": "#fbf3e4",
+            "muted": "#a3967d",
+            "bt": "#1a1206"
+        },
+        "gradient": ["#b45309", "#f59e0b", "#fde68a"],
+        "font_style": "mono", "radius": "8px",
+    },
+    "mobile": {
+        "name": "App Craft",
+        "palette": {
+            "bg": "#f3f6ff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(37,99,235,0.14)",
+            "accent": "#2563eb",
+            "accent2": "#22d3ee",
+            "text": "#0f1b3d",
+            "muted": "#64748b",
+            "bt": "#fff"
+        },
+        "gradient": ["#2563eb", "#38bdf8", "#6366f1"],
+        "font_style": "modern", "radius": "20px",
+    },
+    "devops": {
+        "name": "Ops Line",
+        "palette": {
+            "bg": "#0b0f14",
+            "bg2": "#10161d",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(249,115,22,0.25)",
+            "accent": "#f97316",
+            "accent2": "#38bdf8",
+            "text": "#eef4f8",
+            "muted": "#94a3b0",
+            "bt": "#fff"
+        },
+        "gradient": ["#f97316", "#38bdf8", "#a3e635"],
+        "font_style": "mono", "radius": "6px",
+    },
+    "robotics": {
+        "name": "Robotics Lab",
+        "palette": {
+            "bg": "#07100e",
+            "bg2": "#0c1815",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(45,212,191,0.25)",
+            "accent": "#2dd4bf",
+            "accent2": "#fb7185",
+            "text": "#e9f7f3",
+            "muted": "#8aa79f",
+            "bt": "#fff"
+        },
+        "gradient": ["#2dd4bf", "#14b8a6", "#fb7185"],
+        "font_style": "modern", "radius": "18px",
+    },
+    "support": {
+        "name": "Helpdesk",
+        "palette": {
+            "bg": "#f0f7ff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(2,132,199,0.16)",
+            "accent": "#0284c7",
+            "accent2": "#14b8a6",
+            "text": "#0c1c2e",
+            "muted": "#5f7488",
+            "bt": "#fff"
+        },
+        "gradient": ["#0ea5e9", "#14b8a6", "#6366f1"],
+        "font_style": "modern", "radius": "16px",
+    },
+    "economist": {
+        "name": "Economist",
+        "palette": {
+            "bg": "#f7f3e7",
+            "bg2": "#fffdf6",
+            "card": "rgba(255,255,255,0.8)",
+            "line": "rgba(26,93,58,0.14)",
+            "accent": "#1a5d3a",
+            "accent2": "#b45309",
+            "text": "#1c2a20",
+            "muted": "#6c7a6a",
+            "bt": "#fff"
+        },
+        "gradient": ["#1a5d3a", "#b45309", "#78716c"],
+        "font_style": "serif", "radius": "8px",
+    },
+    "accounting": {
+        "name": "Ledger",
+        "palette": {
+            "bg": "#f6faf9",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(5,150,105,0.16)",
+            "accent": "#059669",
+            "accent2": "#0f766e",
+            "text": "#0f2b22",
+            "muted": "#5f7d70",
+            "bt": "#fff"
+        },
+        "gradient": ["#059669", "#0f766e", "#84cc16"],
+        "font_style": "mono", "radius": "8px",
+    },
+    "ecommerce": {
+        "name": "Storefront",
+        "palette": {
+            "bg": "#fff6ec",
+            "bg2": "#fffdf9",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(234,88,12,0.16)",
+            "accent": "#ea580c",
+            "accent2": "#db2777",
+            "text": "#331b10",
+            "muted": "#8a7868",
+            "bt": "#fff"
+        },
+        "gradient": ["#ea580c", "#f59e0b", "#db2777"],
+        "font_style": "modern", "radius": "18px",
+    },
+    "business": {
+        "name": "Boardroom",
+        "palette": {
+            "bg": "#0b1120",
+            "bg2": "#101a33",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(250,204,21,0.24)",
+            "accent": "#facc15",
+            "accent2": "#94a3b8",
+            "text": "#f3f6ff",
+            "muted": "#93a0bc",
+            "bt": "#fff"
+        },
+        "gradient": ["#facc15", "#94a3b8", "#1e40af"],
+        "font_style": "serif", "radius": "12px",
+    },
+    "founder": {
+        "name": "Founder",
+        "palette": {
+            "bg": "#0c0c0f",
+            "bg2": "#141418",
+            "card": "rgba(255,255,255,0.06)",
+            "line": "rgba(163,230,53,0.22)",
+            "accent": "#a3e635",
+            "accent2": "#f8fafc",
+            "text": "#f4f6ee",
+            "muted": "#9aa0a8",
+            "bt": "#0c0c0f"
+        },
+        "gradient": ["#a3e635", "#4ade80", "#f8fafc"],
+        "font_style": "modern", "radius": "14px",
+    },
+    "sales": {
+        "name": "Deal Closer",
+        "palette": {
+            "bg": "#f7f9fc",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(234,88,12,0.15)",
+            "accent": "#ea580c",
+            "accent2": "#1d4ed8",
+            "text": "#202b3d",
+            "muted": "#67748a",
+            "bt": "#fff"
+        },
+        "gradient": ["#ea580c", "#f97316", "#1d4ed8"],
+        "font_style": "modern", "radius": "14px",
+    },
+    "consulting": {
+        "name": "Advisory",
+        "palette": {
+            "bg": "#f4f6f9",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(51,65,85,0.14)",
+            "accent": "#334155",
+            "accent2": "#0ea5e9",
+            "text": "#101826",
+            "muted": "#64748b",
+            "bt": "#fff"
+        },
+        "gradient": ["#334155", "#0ea5e9", "#6366f1"],
+        "font_style": "modern", "radius": "10px",
+    },
+    "logistics": {
+        "name": "Freight Line",
+        "palette": {
+            "bg": "#0c1220",
+            "bg2": "#121b30",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(251,191,36,0.26)",
+            "accent": "#fbbf24",
+            "accent2": "#38bdf8",
+            "text": "#eef4fd",
+            "muted": "#93a2b8",
+            "bt": "#1a1405"
+        },
+        "gradient": ["#fbbf24", "#38bdf8", "#334155"],
+        "font_style": "modern", "radius": "10px",
+    },
+    "realestate": {
+        "name": "Property",
+        "palette": {
+            "bg": "#f1f8f7",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(15,118,110,0.16)",
+            "accent": "#0f766e",
+            "accent2": "#c2410c",
+            "text": "#102824",
+            "muted": "#5f7d78",
+            "bt": "#fff"
+        },
+        "gradient": ["#0f766e", "#14b8a6", "#c2410c"],
+        "font_style": "modern", "radius": "16px",
+    },
+    "hr": {
+        "name": "People Ops",
+        "palette": {
+            "bg": "#faf5ff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(147,51,234,0.16)",
+            "accent": "#9333ea",
+            "accent2": "#ec4899",
+            "text": "#241033",
+            "muted": "#77628d",
+            "bt": "#fff"
+        },
+        "gradient": ["#9333ea", "#ec4899", "#6366f1"],
+        "font_style": "modern", "radius": "20px",
+    },
+    "doctor": {
+        "name": "Med Life",
+        "palette": {
+            "bg": "#effbfa",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(13,148,136,0.16)",
+            "accent": "#0d9488",
+            "accent2": "#38bdf8",
+            "text": "#0c2b28",
+            "muted": "#5e807b",
+            "bt": "#fff"
+        },
+        "gradient": ["#0d9488", "#38bdf8", "#14b8a6"],
+        "font_style": "modern", "radius": "18px",
+    },
+    "psychology": {
+        "name": "Mindful",
+        "palette": {
+            "bg": "#f5f3ff",
+            "bg2": "#fdfcff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(124,58,237,0.16)",
+            "accent": "#7c3aed",
+            "accent2": "#94a3b8",
+            "text": "#211541",
+            "muted": "#7b7295",
+            "bt": "#fff"
+        },
+        "gradient": ["#7c3aed", "#a78bfa", "#94a3b8"],
+        "font_style": "serif", "radius": "20px",
+    },
+    "nutrition": {
+        "name": "Vitality",
+        "palette": {
+            "bg": "#f2fbf3",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(22,163,74,0.18)",
+            "accent": "#16a34a",
+            "accent2": "#f59e0b",
+            "text": "#122718",
+            "muted": "#71876f",
+            "bt": "#fff"
+        },
+        "gradient": ["#16a34a", "#84cc16", "#f59e0b"],
+        "font_style": "modern", "radius": "20px",
+    },
+    "fitness": {
+        "name": "Peak Form",
+        "palette": {
+            "bg": "#0d0d10",
+            "bg2": "#141418",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(239,68,68,0.28)",
+            "accent": "#ef4444",
+            "accent2": "#f8fafc",
+            "text": "#f6f6f6",
+            "muted": "#9aa0a8",
+            "bt": "#fff"
+        },
+        "gradient": ["#ef4444", "#f97316", "#f8fafc"],
+        "font_style": "modern", "radius": "6px",
+    },
+    "veterinary": {
+        "name": "Paws & Care",
+        "palette": {
+            "bg": "#fff7ec",
+            "bg2": "#fffdf5",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(234,88,12,0.16)",
+            "accent": "#ea580c",
+            "accent2": "#a78bfa",
+            "text": "#331c0e",
+            "muted": "#8d7c6a",
+            "bt": "#fff"
+        },
+        "gradient": ["#ea580c", "#f59e0b", "#a78bfa"],
+        "font_style": "modern", "radius": "20px",
+    },
+    "uiux": {
+        "name": "Interface Lab",
+        "palette": {
+            "bg": "#0d0a1d",
+            "bg2": "#141031",
+            "card": "rgba(255,255,255,0.06)",
+            "line": "rgba(240,171,252,0.26)",
+            "accent": "#f0abfc",
+            "accent2": "#22d3ee",
+            "text": "#f5effa",
+            "muted": "#a294bb",
+            "bt": "#fff"
+        },
+        "gradient": ["#f0abfc", "#22d3ee", "#818cf8"],
+        "font_style": "modern", "radius": "26px",
+    },
+    "interior": {
+        "name": "Interiors",
+        "palette": {
+            "bg": "#faf6f0",
+            "bg2": "#fffdf9",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(194,65,12,0.15)",
+            "accent": "#c2410c",
+            "accent2": "#78716c",
+            "text": "#2c2118",
+            "muted": "#8b8272",
+            "bt": "#fff"
+        },
+        "gradient": ["#c2410c", "#a8a29e", "#78716c"],
+        "font_style": "serif", "radius": "10px",
+    },
+    "fashion": {
+        "name": "Runway",
+        "palette": {
+            "bg": "#120a0c",
+            "bg2": "#190e12",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(234,179,8,0.28)",
+            "accent": "#eab308",
+            "accent2": "#fdf2f8",
+            "text": "#f7ede9",
+            "muted": "#a08d89",
+            "bt": "#1a1206"
+        },
+        "gradient": ["#eab308", "#f472b6", "#ffffff"],
+        "font_style": "serif", "radius": "4px",
+    },
+    "videographer": {
+        "name": "Cinema",
+        "palette": {
+            "bg": "#0b0b12",
+            "bg2": "#10101a",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(185,28,28,0.3)",
+            "accent": "#f43f5e",
+            "accent2": "#f59e0b",
+            "text": "#f3eef4",
+            "muted": "#9a8f9f",
+            "bt": "#fff"
+        },
+        "gradient": ["#b91c1c", "#f59e0b", "#eab308"],
+        "font_style": "modern", "radius": "12px",
+    },
+    "musician": {
+        "name": "Stage Light",
+        "palette": {
+            "bg": "#0f0718",
+            "bg2": "#170b22",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(217,70,239,0.3)",
+            "accent": "#d946ef",
+            "accent2": "#fbbf24",
+            "text": "#f7ecfa",
+            "muted": "#a18bab",
+            "bt": "#fff"
+        },
+        "gradient": ["#d946ef", "#fbbf24", "#8b5cf6"],
+        "font_style": "serif", "radius": "22px",
+    },
+    "artist": {
+        "name": "Gallery White",
+        "palette": {
+            "bg": "#ffffff",
+            "bg2": "#fafafa",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(17,24,39,0.12)",
+            "accent": "#111827",
+            "accent2": "#f472b6",
+            "text": "#181818",
+            "muted": "#6b7280",
+            "bt": "#fff"
+        },
+        "gradient": ["#111827", "#f472b6", "#6366f1"],
+        "font_style": "serif", "radius": "24px",
+    },
+    "writer": {
+        "name": "Editorial",
+        "palette": {
+            "bg": "#fbfaf5",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(41,37,36,0.14)",
+            "accent": "#292524",
+            "accent2": "#b45309",
+            "text": "#231f1c",
+            "muted": "#7a736c",
+            "bt": "#fff"
+        },
+        "gradient": ["#292524", "#b45309", "#78716c"],
+        "font_style": "serif", "radius": "8px",
+    },
+    "journalist": {
+        "name": "Press Room",
+        "palette": {
+            "bg": "#f4f4f5",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(185,28,28,0.16)",
+            "accent": "#b91c1c",
+            "accent2": "#18181b",
+            "text": "#1d1d1f",
+            "muted": "#6b7280",
+            "bt": "#fff"
+        },
+        "gradient": ["#b91c1c", "#18181b", "#52525b"],
+        "font_style": "modern", "radius": "6px",
+    },
+    "translator": {
+        "name": "Polyglot",
+        "palette": {
+            "bg": "#effcfa",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(13,148,136,0.16)",
+            "accent": "#0d9488",
+            "accent2": "#7c3aed",
+            "text": "#0e2b27",
+            "muted": "#5f7f79",
+            "bt": "#fff"
+        },
+        "gradient": ["#0d9488", "#7c3aed", "#14b8a6"],
+        "font_style": "modern", "radius": "18px",
+    },
+    "contentcreator": {
+        "name": "Creator Vibes",
+        "palette": {
+            "bg": "#fff1f4",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(225,29,72,0.16)",
+            "accent": "#e11d48",
+            "accent2": "#7c3aed",
+            "text": "#2c1420",
+            "muted": "#8d6f79",
+            "bt": "#fff"
+        },
+        "gradient": ["#e11d48", "#7c3aed", "#f59e0b"],
+        "font_style": "modern", "radius": "22px",
+    },
+    "architecture": {
+        "name": "Blueprint",
+        "palette": {
+            "bg": "#eef5ff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(29,78,216,0.18)",
+            "accent": "#1d4ed8",
+            "accent2": "#0f172a",
+            "text": "#101b30",
+            "muted": "#5f7291",
+            "bt": "#fff"
+        },
+        "gradient": ["#1d4ed8", "#38bdf8", "#0f172a"],
+        "font_style": "modern", "radius": "4px",
+    },
+    "researcher": {
+        "name": "Research Desk",
+        "palette": {
+            "bg": "#0c1224",
+            "bg2": "#111a33",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(56,189,248,0.26)",
+            "accent": "#38bdf8",
+            "accent2": "#a5b4fc",
+            "text": "#eef4fd",
+            "muted": "#93a2ba",
+            "bt": "#fff"
+        },
+        "gradient": ["#38bdf8", "#a5b4fc", "#6366f1"],
+        "font_style": "serif", "radius": "16px",
+    },
+    "scientist": {
+        "name": "Quantum",
+        "palette": {
+            "bg": "#050810",
+            "bg2": "#0a0f1c",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(34,211,238,0.26)",
+            "accent": "#22d3ee",
+            "accent2": "#a78bfa",
+            "text": "#eaf6fc",
+            "muted": "#8fa0b4",
+            "bt": "#fff"
+        },
+        "gradient": ["#22d3ee", "#a78bfa", "#0ea5e9"],
+        "font_style": "mono", "radius": "14px",
+    },
+    "historian": {
+        "name": "Archive",
+        "palette": {
+            "bg": "#f6f1e6",
+            "bg2": "#fdfaf2",
+            "card": "rgba(255,255,255,0.8)",
+            "line": "rgba(146,64,14,0.16)",
+            "accent": "#92400e",
+            "accent2": "#78716c",
+            "text": "#2b2418",
+            "muted": "#877d6c",
+            "bt": "#fff"
+        },
+        "gradient": ["#92400e", "#b45309", "#78716c"],
+        "font_style": "serif", "radius": "6px",
+    },
+    "chef": {
+        "name": "Culinary",
+        "palette": {
+            "bg": "#fff6ec",
+            "bg2": "#fffdf8",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(154,52,18,0.16)",
+            "accent": "#9a3412",
+            "accent2": "#f59e0b",
+            "text": "#2f1707",
+            "muted": "#8f7862",
+            "bt": "#fff"
+        },
+        "gradient": ["#9a3412", "#f59e0b", "#ea580c"],
+        "font_style": "serif", "radius": "14px",
+    },
+    "hospitality": {
+        "name": "Welcome",
+        "palette": {
+            "bg": "#fbf6ec",
+            "bg2": "#fffdf8",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(180,83,9,0.16)",
+            "accent": "#b45309",
+            "accent2": "#0f766e",
+            "text": "#2b2113",
+            "muted": "#8b7f6c",
+            "bt": "#fff"
+        },
+        "gradient": ["#b45309", "#0f766e", "#f59e0b"],
+        "font_style": "serif", "radius": "12px",
+    },
+    "tourism": {
+        "name": "Wanderlust",
+        "palette": {
+            "bg": "#eefaff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(14,165,233,0.16)",
+            "accent": "#0ea5e9",
+            "accent2": "#f59e0b",
+            "text": "#0c2434",
+            "muted": "#5f7f92",
+            "bt": "#fff"
+        },
+        "gradient": ["#0ea5e9", "#14b8a6", "#f59e0b"],
+        "font_style": "modern", "radius": "22px",
+    },
+    "trades": {
+        "name": "Tradesman",
+        "palette": {
+            "bg": "#0e0c0a",
+            "bg2": "#151210",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(249,115,22,0.28)",
+            "accent": "#f97316",
+            "accent2": "#facc15",
+            "text": "#f6efe6",
+            "muted": "#a0907e",
+            "bt": "#fff"
+        },
+        "gradient": ["#f97316", "#facc15", "#78716c"],
+        "font_style": "modern", "radius": "8px",
+    },
+    "beauty": {
+        "name": "Glow Studio",
+        "palette": {
+            "bg": "#fdf2f7",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(219,39,119,0.16)",
+            "accent": "#db2777",
+            "accent2": "#f472b6",
+            "text": "#331221",
+            "muted": "#8d6b7c",
+            "bt": "#fff"
+        },
+        "gradient": ["#db2777", "#f472b6", "#fb923c"],
+        "font_style": "serif", "radius": "26px",
+    },
+    "aviation": {
+        "name": "Aviation",
+        "palette": {
+            "bg": "#f0f9ff",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(3,105,161,0.16)",
+            "accent": "#0369a1",
+            "accent2": "#e2e8f0",
+            "text": "#0c2536",
+            "muted": "#5f7d92",
+            "bt": "#fff"
+        },
+        "gradient": ["#0369a1", "#38bdf8", "#94a3b8"],
+        "font_style": "modern", "radius": "14px",
+    },
+    "agriculture": {
+        "name": "Harvest",
+        "palette": {
+            "bg": "#f7fee7",
+            "bg2": "#fdfff8",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(101,163,13,0.2)",
+            "accent": "#65a30d",
+            "accent2": "#92400e",
+            "text": "#1c2b0e",
+            "muted": "#7c8a68",
+            "bt": "#fff"
+        },
+        "gradient": ["#65a30d", "#84cc16", "#92400e"],
+        "font_style": "modern", "radius": "16px",
+    },
+    "social": {
+        "name": "Compassion",
+        "palette": {
+            "bg": "#fff4ec",
+            "bg2": "#fffdf9",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(234,88,12,0.16)",
+            "accent": "#ea580c",
+            "accent2": "#7c3aed",
+            "text": "#2f1a0e",
+            "muted": "#8d7a68",
+            "bt": "#fff"
+        },
+        "gradient": ["#ea580c", "#ec4899", "#f59e0b"],
+        "font_style": "modern", "radius": "22px",
+    },
+    "government": {
+        "name": "Civic",
+        "palette": {
+            "bg": "#f5f7fa",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(30,58,138,0.16)",
+            "accent": "#1e3a8a",
+            "accent2": "#dc2626",
+            "text": "#101b33",
+            "muted": "#64748b",
+            "bt": "#fff"
+        },
+        "gradient": ["#1e3a8a", "#3b82f6", "#dc2626"],
+        "font_style": "modern", "radius": "10px",
+    },
+    "legal": {
+        "name": "Justice",
+        "palette": {
+            "bg": "#0b0d12",
+            "bg2": "#12151d",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(234,179,8,0.26)",
+            "accent": "#eab308",
+            "accent2": "#94a3b8",
+            "text": "#f2f3f7",
+            "muted": "#98a0ad",
+            "bt": "#1a1405"
+        },
+        "gradient": ["#eab308", "#94a3b8", "#52525b"],
+        "font_style": "serif", "radius": "6px",
+    },
 }
+
 
 EXTRA_THEMES = {
     "midnight": "Dark navy + electric blue",
