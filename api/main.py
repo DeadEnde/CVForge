@@ -1,14 +1,12 @@
-"""BrainForge — Vercel serverless entrypoint (CVForge public API).
+"""CVForge — Vercel serverless API (self-contained: cvforge package lives in api/).
 
-Serves:
-  GET  /                  -> landing (static, repo root index.html)
-  GET  /api/health        -> health check
-  POST /api/cv/parse      -> CV text -> structured JSON
-  POST /api/cv/parse_file -> upload PDF/DOCX/MD/TXT -> structured JSON
-  POST /api/cv/generate   -> CV -> portfolio HTML (EN/AR-RTL, 11 themes)
-
-NOTE: BrainBridge endpoints are intentionally NOT hosted here — the owner's
-NotebookLM memory is private. BrainBridge runs locally (./run.sh brain).
+Endpoints:
+  GET  /api/health            -> health check
+  GET  /api/cv/themes         -> available themes
+  POST /api/cv/parse          -> CV text -> structured JSON
+  POST /api/cv/parse_file     -> upload PDF/DOCX/MD/TXT -> structured JSON
+  POST /api/cv/generate       -> CV -> portfolio HTML (EN / AR-RTL)
+  GET/POST /api/brain/{tool}  -> 501 (BrainBridge is a separate local product)
 """
 
 import os
@@ -16,8 +14,8 @@ import sys
 import uuid
 from pathlib import Path
 
-# Make the repo root importable so `cvforge` package resolves on Vercel.
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# The function bundle contains this package next to main.py.
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from fastapi import FastAPI, UploadFile, File  # noqa: E402
 from fastapi.responses import JSONResponse  # noqa: E402
@@ -26,15 +24,15 @@ from cvforge.cv_parser import parse_cv  # noqa: E402
 from cvforge.portfolio import generate_portfolio_html  # noqa: E402
 from cvforge.themes import THEMES  # noqa: E402
 
-app = FastAPI(title="BrainForge API", version="0.1.0")
+app = FastAPI(title="CVForge API", version="0.1.0")
 
-_OUT = Path("/tmp/brainforge_deploy")
+_OUT = Path("/tmp/cvforge_deploy")
 _OUT.mkdir(parents=True, exist_ok=True)
 
 
 @app.get("/api/health")
 async def health():
-    return {"ok": True, "name": "brainforge-api", "parts": ["cvforge"]}
+    return {"ok": True, "name": "cvforge-api", "parts": ["cvforge"]}
 
 
 @app.get("/api/cv/themes")
@@ -47,7 +45,7 @@ async def cv_parse(body: dict):
     try:
         cv = parse_cv(body.get("text", "")).to_dict()
         return {"ok": True, "cv": cv}
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
 
 
@@ -59,7 +57,7 @@ async def cv_parse_file(file: UploadFile = File(...)):
     try:
         cv = parse_cv(str(tmp)).to_dict()
         return {"ok": True, "cv": cv, "file_id": tmp.stem}
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
     finally:
         tmp.unlink(missing_ok=True)
@@ -82,15 +80,15 @@ async def cv_generate(body: dict):
             "domain": cv.get("domain", "generic"),
             "domain_label": cv.get("domain_label"),
         }
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
 
 
 @app.api_route("/api/brain/{tool}", methods=["GET", "POST"])
-async def brain_private(tool: str):
-    """BrainBridge is not hosted: the owner's NotebookLM memory stays private."""
+async def brain_private(tool: str):  # noqa: ARG001
+    """BrainBridge is a separate, local/self-hosted product — never hosted here."""
     return JSONResponse({
         "ok": False,
         "error": "BrainBridge is not available on the hosted demo (memory is private).",
-        "hint": "Run BrainBridge locally: ./run.sh brain (see README).",
+        "hint": "Run BrainBridge locally: github.com/DeadEnde/BrainBridge",
     }, status_code=501)

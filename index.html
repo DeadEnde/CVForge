@@ -282,7 +282,12 @@ async function generateCv(){
   try{
     const r = await fetch('/api/brain/brain_status',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
     const j = await r.json();
-    const ok = j.ok && j.text.includes('"valid": true');
+    let ok = j.ok && (j.text||'').includes('"valid": true');
+    if (!ok && ((j.text||'') + (j.error||'')).includes('BrainBridge is not available')) {
+      $('authBadge').textContent = '● BrainBridge = local (self-hosted)';
+      $('authBadge').className = 'badge';
+      return;
+    }
     $('authBadge').textContent = ok ? '● session VALID' : '● session missing';
     $('authBadge').className = 'badge ' + (ok?'ok':'');
   }catch(e){ $('authBadge').textContent = '● check failed'; }
