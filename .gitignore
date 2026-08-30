@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.log
+.DS_Store
+.vercel/
+.vercelignore
+playground_output/

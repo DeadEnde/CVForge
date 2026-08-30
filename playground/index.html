@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrainForge — Playground</title>
+<style>
+:root{
+  --bg:#070b14; --card:rgba(255,255,255,.05); --border:rgba(255,255,255,.1);
+  --accent:#6366f1; --accent2:#22d3ee; --pink:#f472b6; --green:#34d399; --red:#f87171;
+  --text:#e7ecf6; --muted:#8b93a7;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.25;animation:drift 20s ease-in-out infinite alternate}
+.b1{width:40vmax;height:40vmax;background:#6366f1;top:-15vmax;left:-10vmax}
+.b2{width:32vmax;height:32vmax;background:#22d3ee;bottom:-12vmax;right:-8vmax;animation-delay:-7s}
+.b3{width:18vmax;height:18vmax;background:#f472b6;top:40%;left:55%;animation-delay:-13s;opacity:.15}
+@keyframes drift{to{transform:translate(6vmax,4vmax) scale(1.1)}}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+.logo{font-size:1.3rem;font-weight:800;background:linear-gradient(90deg,#6366f1,#22d3ee,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.badge{font-size:.72rem;padding:5px 10px;border-radius:99px;border:1px solid var(--border);color:var(--muted)}
+.badge.ok{color:var(--green);border-color:rgba(52,211,153,.4)}
+.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:11px 20px;border-radius:14px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-weight:700;font-size:.92rem;color:var(--muted);transition:.25s}
+.tab:hover{color:var(--text)}
+.tab.active{background:linear-gradient(90deg,#6366f1,#22d3ee);color:#fff;border-color:transparent;box-shadow:0 8px 24px rgba(99,102,241,.35)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:18px;padding:18px}
+.card h3{font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent2)}
+label{display:block;font-size:.78rem;color:var(--muted);margin:10px 0 5px}
+input,textarea,select{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:12px;color:var(--text);padding:11px 13px;font-size:.9rem;font-family:inherit;outline:none;transition:.2s}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:90px}
+textarea.big{min-height:230px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{padding:11px 20px;border-radius:12px;border:none;cursor:pointer;font-weight:700;font-size:.88rem;transition:.25s;color:#fff}
+.btn.p{background:linear-gradient(90deg,#6366f1,#22d3ee);box-shadow:0 8px 22px rgba(99,102,241,.35)}
+.btn.p:hover{transform:translateY(-2px)}
+.btn.g{background:rgba(52,211,153,.18);color:var(--green);border:1px solid rgba(52,211,153,.35)}
+.btn.r{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.btn:disabled{opacity:.5;cursor:wait}
+pre{background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:14px;padding:14px;font-size:.78rem;overflow:auto;max-height:380px;color:#c9d4e8;font-family:'JetBrains Mono',Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+#out{min-height:60px}
+.iframe-wrap{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:16px;overflow:hidden;height:560px;margin-top:14px;position:relative}
+iframe{width:100%;height:100%;border:none;background:#0a0c14}
+.pill{font-size:.72rem;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted)}
+.hint{font-size:.76rem;color:var(--muted);margin-top:8px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="bg"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<div class="wrap">
+  <header>
+    <div class="logo">🧠⚒️ BrainForge Playground</div>
+    <div class="row">
+      <span id="authBadge" class="badge">checking session…</span>
+      <span class="badge">Python 3.13 · FastMCP · NotebookLM</span>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="brain" onclick="switchTab('brain')">🧠 BrainBridge — Memory MCP</div>
+    <div class="tab" data-tab="cv" onclick="switchTab('cv')">🎨 CVForge — CV → Portfolio</div>
+  </div>
+
+  <!-- ================= BRAINBRIDGE ================= -->
+  <div id="tab-brain">
+    <div class="grid">
+      <div class="card">
+        <h3><span class="dot"></span> Brain Status & Session</h3>
+        <div class="row">
+          <button class="btn p" onclick="brainCall('brain_status',{})">Check session</button>
+          <button class="btn g" onclick="brainCall('brain_list',{})">List brains</button>
+          <button class="btn r" onclick="brainCall('brain_login_silent',{browser:'chrome'})">Import from browser</button>
+        </div>
+        <p class="hint">`brain_login` opens a Google popup (works on a machine with a display, not in this sandbox).</p>
+        <label>Brain (target)</label>
+        <select id="brainSel">
+          <option value="personal">personal — Abdelkhalik Brain</option>
+          <option value="project">project — ArtisanPro Brain</option>
+        </select>
+
+        <label>Ask the brain a question</label>
+        <textarea id="askQ" rows="2" placeholder="e.g. What is ArtisanPro about?"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button class="btn p" onclick="askBrain()">Ask</button>
+        </div>
+
+        <label>Save memory (title)</label>
+        <input id="memTitle" placeholder="e.g. frontend-notes-july" />
+        <label>Save memory (content)</label>
+        <textarea id="memContent" placeholder="What should future sessions remember?"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button class="btn p" onclick="saveMemory()">💾 Save to brain</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><span class="dot"></span> Memory Browser</h3>
+        <div class="row">
+          <input id="kw" placeholder="filter keyword (optional)" style="flex:1" />
+          <button class="btn g" onclick="listSources()">List sources</button>
+        </div>
+        <label>Read a source by ID</label>
+        <div class="row">
+          <input id="srcId" placeholder="source id or prefix" style="flex:1" />
+          <button class="btn g" onclick="readSource()">Read</button>
+        </div>
+        <button class="btn g" style="margin-top:10px" onclick="brainCall('memory_context',{brain:document.getElementById('brainSel').value})">🧭 Context digest</button>
+        <div id="out" style="margin-top:14px"><pre>Results appear here…</pre></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CVFORGE ================= -->
+  <div id="tab-cv" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <h3><span class="dot"></span> CV input</h3>
+        <label>Paste CV (Markdown / text)</label>
+        <textarea id="cvText" class="big" placeholder="Paste a CV… (works best with sections: Summary, Skills, Experience, Projects, Education)"></textarea>
+        <div class="row">
+          <input type="file" id="cvFile" accept=".md,.txt,.pdf,.docx" style="flex:1" />
+          <button class="btn g" onclick="uploadCv()">Upload</button>
+        </div>
+        <label>Theme</label>
+        <select id="themeSel">
+          <option value="">auto (by domain)</option>
+          <option value="developer">developer — Neon Code</option>
+          <option value="designer">designer — Studio Rose</option>
+          <option value="photographer">photographer — Golden Hour</option>
+          <option value="marketer">marketer — Growth Green</option>
+          <option value="data">data — Data Pulse</option>
+          <option value="manager">manager — Executive</option>
+          <option value="teacher">teacher — Scholar</option>
+          <option value="finance">finance — Fintech</option>
+          <option value="health">health — Care</option>
+          <option value="engineer">engineer — Builder</option>
+          <option value="generic">generic — Aurora</option>
+        </select>
+        <label>Language</label>
+        <select id="langSel">
+          <option value="en">English (LTR)</option>
+          <option value="ar">العربية (RTL)</option>
+        </select>
+        <div class="row" style="margin-top:12px">
+          <button class="btn g" onclick="parseCv()">🔎 Parse CV</button>
+          <button class="btn p" onclick="generateCv()">✨ Generate portfolio</button>
+        </div>
+        <p class="hint">Tip: paste the sample by clicking "Load sample".</p>
+        <button class="btn g" style="margin-top:8px" onclick="loadSample()">Load sample CV</button>
+      </div>
+
+      <div class="card">
+        <h3><span class="dot"></span> Preview</h3>
+        <div id="parsedOut"><pre>Parsed CV data appears here — then generate to see the live portfolio below.</pre></div>
+        <div id="iframeWrap" class="iframe-wrap hidden"><iframe id="pv"></iframe></div>
+        <div id="genMeta" class="row" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active', x.dataset.tab===t));
+  $('tab-brain').classList.toggle('hidden', t!=='brain');
+  $('tab-cv').classList.toggle('hidden', t!=='cv');
+}
+function showOut(txt){
+  try{ txt = JSON.stringify(JSON.parse(txt), null, 2); }catch(e){}
+  $('out').innerHTML = '<pre>' + String(txt).replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</pre>';
+}
+function showParsed(txt){
+  try{ txt = JSON.stringify(JSON.parse(txt), null, 2); }catch(e){}
+  $('parsedOut').innerHTML = '<pre>' + String(txt).replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</pre>';
+}
+async function brainCall(tool, params){
+  showOut('…');
+  try{
+    const r = await fetch('/api/brain/'+tool,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(params)});
+    const j = await r.json();
+    showOut(j.ok ? j.text : ('ERROR: ' + (j.error||JSON.stringify(j))));
+  }catch(e){ showOut('FETCH ERROR: '+e); }
+}
+async function askBrain(){
+  const q = $('askQ').value.trim(); if(!q){ alert('Type a question first'); return; }
+  await brainCall('brain_ask',{question:q, brain:$('brainSel').value});
+}
+async function saveMemory(){
+  const t=$('memTitle').value.trim(), c=$('memContent').value.trim();
+  if(!t||!c){ alert('Title + content required'); return; }
+  await brainCall('memory_save',{title:t, content:c, brain:$('brainSel').value});
+}
+async function listSources(){
+  await brainCall('memory_sources',{keyword:$('kw').value.trim()||null, brain:$('brainSel').value});
+}
+async function readSource(){
+  const id=$('srcId').value.trim(); if(!id){ alert('Source ID required'); return; }
+  await brainCall('memory_read',{source_id:id, brain:$('brainSel').value});
+}
+async function loadSample(){
+  $('cvText').value = SAMPLE;
+}
+const SAMPLE = `# Yassine El Amrani
+Full-Stack Developer — React & Node.js
+yassine.elamrani@gmail.com | +212 6 12 34 56 78 | Casablanca, Morocco
+github.com/yassine-amrani
+
+## Summary
+Full-stack developer with 6+ years building web and mobile products for startups
+in Morocco and Europe. Passionate about clean architecture, pixel-perfect UI and shipping fast.
+
+## Skills
+- React, Next.js, TypeScript
+- Node.js, Express, NestJS
+- PostgreSQL, MongoDB, Redis
+- Flutter, React Native
+- Docker, AWS, CI/CD
+- Tailwind CSS, Framer Motion, Figma
+
+## Experience
+- Senior Full-Stack Developer — TechNova SA, Casablanca (2023 – Present)
+  - Led migration of a legacy ERP to React + NestJS serving 40k users
+  - Reduced page load time by 65% through SSR and caching strategy
+  - Mentored a team of 4 junior developers
+- Full-Stack Developer — Startup Factory, Rabat (2020 – 2023)
+  - Built 12+ client web apps (e-commerce, booking, dashboards)
+  - Implemented CI/CD pipelines with Docker and GitHub Actions
+
+## Projects
+- AtlasPay — Payment dashboard for Moroccan merchants, 3k MAU
+- FarmLink — Marketplace web app connecting farmers to restaurants
+
+## Education
+- Engineering Degree in Computer Science — ENSIAS, Rabat (2015 – 2019)
+
+## Languages
+- Arabic (native), French (fluent), English (professional)`;
+
+let uploadedFileId = null;
+async function uploadCv(){
+  const f = $('cvFile').files[0]; if(!f){ alert('Choose a file first'); return; }
+  showParsed('uploading…');
+  const fd = new FormData(); fd.append('file', f);
+  const r = await fetch('/api/cv/parse_file',{method:'POST',body:fd});
+  const j = await r.json();
+  if(!j.ok){ showParsed('ERROR: '+(j.error||'')); return; }
+  uploadedFileId = j.file_id;
+  showParsed(JSON.stringify(j.cv,null,2));
+  $('cvText').value = ''; // file wins
+}
+async function parseCv(){
+  showParsed('parsing…');
+  const r = await fetch('/api/cv/parse',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:$('cvText').value})});
+  const j = await r.json();
+  showParsed(j.ok ? JSON.stringify(j.cv,null,2) : ('ERROR: '+(j.error||'')));
+}
+async function generateCv(){
+  const body = {theme:$('themeSel').value||null, language:$('langSel').value};
+  if(uploadedFileId && $('cvText').value===''){ body.file_id = uploadedFileId; }
+  else { body.text = $('cvText').value; }
+  if(!body.text && !body.file_id){ alert('Paste a CV or upload a file first'); return; }
+  $('iframeWrap').classList.remove('hidden');
+  $('pv').srcdoc = '<div style="display:grid;place-items:center;height:100%;color:#8b93a7;font-family:sans-serif">Generating…</div>';
+  const r = await fetch('/api/cv/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const j = await r.json();
+  if(!j.ok){ $('pv').srcdoc = '<div style="padding:30px;color:#f87171;font-family:sans-serif">ERROR: '+String(j.error)+'</div>'; return; }
+  $('pv').srcdoc = j.html;
+  $('genMeta').innerHTML = `<span class="pill">${j.domain_label||j.domain}</span><span class="pill">${j.chars} chars</span><a href="/playground_output/${(j.path.split('/').slice(-2,-1))[0]}/index.html" target="_blank" class="pill" style="text-decoration:none">open full page ↗</a>`;
+}
+(async function init(){
+  try{
+    const r = await fetch('/api/brain/brain_status',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+    const j = await r.json();
+    const ok = j.ok && j.text.includes('"valid": true');
+    $('authBadge').textContent = ok ? '● session VALID' : '● session missing';
+    $('authBadge').className = 'badge ' + (ok?'ok':'');
+  }catch(e){ $('authBadge').textContent = '● check failed'; }
+})();
+</script>
+</body>
+</html>
