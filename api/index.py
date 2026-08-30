@@ -15,7 +15,6 @@ Endpoints:
   POST /api/cv/parse | /cv/parse                -> CV text -> structured JSON
   POST /api/cv/parse_file | /cv/parse_file      -> upload PDF/DOCX/MD/TXT
   POST /api/cv/generate | /cv/generate          -> CV -> portfolio HTML (EN/AR-RTL)
-  POST /api/brain/{tool}                        -> 501 (BrainBridge = separate local product)
   GET  / | /index.html                          -> landing page
 """
 
@@ -482,10 +481,6 @@ def _parse_file(path: Path):
         path.unlink(missing_ok=True)
 
 
-def _brain_private():
-    return {"ok": False,
-            "error": "BrainBridge is not available on the hosted demo (memory is private).",
-            "hint": "Run BrainBridge locally: github.com/DeadEnde/BrainBridge"}
 
 
 def _landing():
@@ -518,10 +513,6 @@ async def _dispatch(full_path: str, request: Request):
         return JSONResponse({"ok": False, "error": f"unknown route: /{orig}"}, status_code=404)
 
     if request.method == "POST":
-        if path.startswith("brain/"):
-            return Response(content=json.dumps(_brain_private()),
-                            media_type="application/json", status_code=501)
-
         # read body manually (JSON or multipart/file)
         ct = request.headers.get("content-type", "")
         text = ""

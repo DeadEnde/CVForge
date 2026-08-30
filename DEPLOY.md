@@ -25,7 +25,6 @@ for uploads). `api/requirements.txt` mirrors it.
   - `POST /api/cv/parse` → CV text → structured JSON
   - `POST /api/cv/parse_file` → multipart `file` (PDF/DOCX/MD/TXT) → structured JSON
   - `POST /api/cv/generate` → `{theme, language: "en"|"ar"}` → portfolio HTML (`lang="ar" dir="rtl"`)
-  - `POST /api/brain/*` → 501 (BrainBridge is a separate local product)
 - `api/landing.html` → bundled copy of the landing page
 - `requirements.txt` (root!) → fastapi, pypdf, python-docx (+ local MCP extras)
 - `api/requirements.txt` → same minimal set
