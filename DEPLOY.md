@@ -1,40 +1,30 @@
 # 🚀 Deploy CVForge on Vercel
 
-Vercel-ready: static landing (`index.html`) + Python serverless API (`api/main.py`).
-BrainBridge is a **separate repo and stays local/self-hosted** (private memory).
+**Design (1.0):** the function is ONE self-contained file — `api/index.py`
+(inline parser + themes + portfolio renderer). Zero local imports, zero
+`fastmcp`, zero path hacks → no more FUNCTION_INVOCATION_FAILED.
+Routes are registered with AND without the `/api` prefix (Vercel-mount-safe).
 
-## Option A — Vercel Dashboard (Git)
-1. Push this repo to GitHub:
-   ```bash
-   git remote add origin https://github.com/DeadEnde/CVForge.git
-   git push -u origin main
-   ```
-2. Vercel → **Add New → Project** → Import `DeadEnde/CVForge`.
-3. Framework preset: **Other**. Root directory: `./`. No env vars needed.
-4. **Deploy** — done. Every `git push` re-deploys.
+## Steps
+1. `git push origin main` (this repo) — Vercel auto-deploys on push (Git integration).
+2. Or manual: Vercel → Project → Deployments → **Redeploy** on the latest commit.
 
-## Option B — CLI
+## Files
+- `api/index.py` → FastAPI `app` (routes: health, cv/themes, cv/parse,
+  cv/parse_file, cv/generate, brain/{tool} → 501 private)
+- `api/requirements.txt` → fastapi, pypdf, python-docx (that's all)
+- `vercel.json` → rewrite `/api/(.*)` → `/api/index` + security headers
+- `index.html` → static landing (same origin, calls the API)
+
+## Smoke test after deploy
 ```bash
-npx vercel deploy --yes        # preview
-npx vercel --prod --yes        # production
-```
-
-## Config (already in repo)
-- `vercel.json` → function `api/main.py` (python3.12, maxDuration 30s),
-  rewrites `/api/*` → function, security headers.
-- `api/requirements.txt` → fastapi, pypdf, python-docx (function-only deps).
-- `.gitignore` → `.vercel/`, cache, secrets.
-
-## After deploy — smoke test
-```bash
-curl https://<your-app>.vercel.app/api/health
-curl -X POST https://<your-app>.vercel.app/api/cv/generate \
+curl https://<app>.vercel.app/api/health
+curl -X POST https://<app>.vercel.app/api/cv/generate \
   -H 'Content-Type: application/json' \
   -d '{"text":"# Sara\nData Analyst\nsara@x.io\n## Skills\n- SQL","language":"ar"}'
 # → {"ok":true,"html":"<!DOCTYPE html>…<html lang=\"ar\" dir=\"rtl\">…"}
 ```
 
-## Local pre-check
-```bash
-uvicorn api.main:app --port 8799
-```
+## IF IT STILL FAILS (unlikely — verified with exact simulation)
+Open Vercel → Deployments → latest → **Function Logs** and paste the traceback.
+Most likely cause at this point: a stale deployment → press **Redeploy**.
