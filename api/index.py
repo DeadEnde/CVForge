@@ -461,6 +461,27 @@ def _generate(text: str, theme: str | None, language: str):
         return {"ok": False, "error": str(e)}
 
 
+def _parse_file(path: Path):
+    """Extract text from an uploaded CV file (PDF/DOCX/MD/TXT) then parse it."""
+    try:
+        suffix = path.suffix.lower()
+        if suffix == ".pdf":
+            from pypdf import PdfReader  # lazy: only needed for uploaded PDFs
+            reader = PdfReader(str(path))
+            text = "\n".join((page.extract_text() or "") for page in reader.pages)
+        elif suffix in (".docx", ".doc"):
+            import docx  # lazy: only needed for uploaded Word files
+            d = docx.Document(str(path))
+            text = "\n".join(p.text for p in d.paragraphs)
+        else:  # .md, .txt, or anything else read as text
+            text = path.read_text(encoding="utf-8", errors="ignore")
+        return _parse(text)
+    except Exception as e:  # noqa: BLE001
+        return {"ok": False, "error": f"could not read {path.suffix}: {e}"}
+    finally:
+        path.unlink(missing_ok=True)
+
+
 def _brain_private():
     return {"ok": False,
             "error": "BrainBridge is not available on the hosted demo (memory is private).",
@@ -506,6 +527,7 @@ async def _dispatch(full_path: str, request: Request):
         text = ""
         theme = None
         language = "en"
+        uploaded = None
         try:
             if "multipart" in ct or "application/x-www-form-urlencoded" in ct:
                 form = await request.form()
@@ -513,10 +535,7 @@ async def _dispatch(full_path: str, request: Request):
                 if f is not None and hasattr(f, "filename"):
                     tmp = _OUT / f"upload_{uuid.uuid4().hex[:8]}{Path(f.filename or 'cv.txt').suffix.lower()}"
                     tmp.write_bytes(await f.read())
-                    try:
-                        text = tmp.read_text(encoding="utf-8", errors="ignore")
-                    finally:
-                        tmp.unlink(missing_ok=True)
+                    uploaded = tmp
                 else:
                     text = str(form.get("text", "") or "")
             else:
@@ -530,6 +549,11 @@ async def _dispatch(full_path: str, request: Request):
 
         if path == "cv/parse":
             return Response(content=json.dumps(_parse(text)), media_type="application/json")
+        if path == "cv/parse_file":
+            if uploaded is None:
+                return JSONResponse({"ok": False, "error": "no file uploaded (multipart field 'file')"},
+                                    status_code=400)
+            return Response(content=json.dumps(_parse_file(uploaded)), media_type="application/json")
         if path == "cv/generate":
             res = _generate(text, theme, language)
             return Response(content=json.dumps(res, ensure_ascii=False), media_type="application/json")
