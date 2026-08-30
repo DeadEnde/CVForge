@@ -1,0 +1,7 @@
+# Hosted API needs (also used for local dev):
+fastapi>=0.115
+pypdf>=5.0
+python-docx>=1.1
+# Local MCP server extras (harmless on Vercel):
+mcp>=1.0
+fastmcp>=2.0
