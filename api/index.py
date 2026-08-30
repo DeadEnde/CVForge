@@ -2,26 +2,30 @@
 
 This file contains the parser, themes and portfolio renderer INLINE so the
 function has ZERO local imports (no cvforge package, no fastmcp, no path
-hacks) — the #1 cause of FUNCTION_INVOCATION_FAILED on Vercel is gone.
+hacks) — the #1 cause of FUNCTION_INVOCATION_FAILED on Vercel.
 
-Routes are registered with BOTH the /api/ prefix and the stripped form so it
-works regardless of how Vercel mounts the function (rewrite vs direct).
+It also acts as a catch-all: whatever path Vercel forwards
+(/api/health, /health, /api/index, /, ...) is dispatched manually, so routing
+ambiguity cannot break the function. GET / serves the landing page (bundled
+as landing.html next to this file).
 
 Endpoints:
-  GET  /api/health      (+ /health)                 -> status
-  GET  /api/cv/themes   (+ /cv/themes)              -> theme list
-  POST /api/cv/parse    (+ /cv/parse)               -> CV text -> structured JSON
-  POST /api/cv/parse_file (+ /cv/parse_file)        -> upload PDF/DOCX/MD/TXT
-  POST /api/cv/generate (+ /cv/generate)            -> CV -> portfolio HTML (EN/AR-RTL)
-  POST /api/brain/{tool}                            -> 501 (BrainBridge = separate local product)
+  GET  /api/health | /health                    -> status
+  GET  /api/cv/themes | /cv/themes              -> theme list
+  POST /api/cv/parse | /cv/parse                -> CV text -> structured JSON
+  POST /api/cv/parse_file | /cv/parse_file      -> upload PDF/DOCX/MD/TXT
+  POST /api/cv/generate | /cv/generate          -> CV -> portfolio HTML (EN/AR-RTL)
+  POST /api/brain/{tool}                        -> 501 (BrainBridge = separate local product)
+  GET  / | /index.html                          -> landing page
 """
 
+import json
 import re
 import uuid
 from pathlib import Path
 
-from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, Request, UploadFile, File
+from fastapi.responses import JSONResponse, PlainTextResponse, Response
 
 # ---------------------------------------------------------------------------
 # MINI CV PARSER (ported from cvforge/cv_parser.py, self-contained)
@@ -195,7 +199,7 @@ def parse_cv(text: str) -> dict:
             else:
                 text = path.read_text(encoding="utf-8", errors="ignore")
         except Exception:
-            text = path.read_text(encoding="utf-8", errors="ignore")
+            return parse_cv(path.read_text(encoding="utf-8", errors="ignore"))
 
     lines = [re.sub(r"^#{1,6}\s*", "", l.strip()).strip() for l in text.splitlines() if l.strip()]
     joined = "\n".join(lines)
@@ -367,10 +371,7 @@ footer{{margin:64px 0 30px;padding:36px 30px;text-align:center}}
 @media(max-width:600px){{.hero{{padding:36px 20px}}.wrap{{padding:0 14px}}}}
 """
 
-    def words_json():
-        import json as _json
-        words = [title, cv.get("domain_label") or "Professional", "Available for new opportunities"]
-        return _json.dumps(words, ensure_ascii=False)
+    words = json.dumps([title, cv.get("domain_label") or "Professional", "Available for new opportunities"], ensure_ascii=False)
 
     return f"""<!DOCTYPE html>
 <html lang="{lang_attr}"{direction}>
@@ -398,7 +399,7 @@ footer{{margin:64px 0 30px;padding:36px 30px;text-align:center}}
     </div>
   </header>
   <section id="about"><h2>About <span class="bar"></span></h2><p class="sub">{_esc(cv.get('domain_label',''))} · Focused on real impact.</p></section>
-  <section id="skills"><h2>Skills <span class="bar"></span></h2><div class="chips">{chips or '<span class="chip">Core skills</span>'}</div>{f'<div class="chips" style="margin-top:16px">{lang_chips}</div>' if lang_chips else ''}</section>
+  <section id="skills"><h2>Skills <span class="bar"></span></h2><div class="chips">{chips or '<span class="chip">Core skills</span>'}{f'<div class="chips" style="margin-top:16px">{lang_chips}</div>' if lang_chips else ''}</section>
   <section id="experience"><h2>Experience <span class="bar"></span></h2>{exp_h or '<p class="sub">Detailed experience available on request.</p>'}</section>
   {f'<section id="education"><h2>Education <span class="bar"></span></h2>{edu_h}</section>' if edu_h else ''}
   <section id="projects"><h2>Projects <span class="bar"></span></h2><div class="gridP">{proj_cards}</div></section>
@@ -409,7 +410,7 @@ footer{{margin:64px 0 30px;padding:36px 30px;text-align:center}}
   </footer>
 </main>
 <script>
-(function(){{var w={words_json()};var el=document.getElementById("typed");var wi=0,ci=0,del=false;
+(function(){{var w={words};var el=document.getElementById("typed");var wi=0,ci=0,del=false;
 function t(){{var s=w[wi]||"";el.textContent=s.slice(0,ci)+"▌";
 if(!del&&ci<s.length){{ci++;setTimeout(t,55);}}else if(!del){{del=true;setTimeout(t,1500);}}
 else if(ci>0){{ci--;setTimeout(t,24);}}else{{del=false;wi=(wi+1)%w.length;setTimeout(t,300);}}}}
@@ -423,12 +424,14 @@ document.querySelectorAll(".hero,section,footer").forEach(function(e){{e.classLi
 
 
 # ---------------------------------------------------------------------------
-# FASTAPI APP — routes registered with AND without /api prefix (Vercel-safe)
+# FASTAPI APP — single catch-all dispatcher (no FastAPI injection pitfalls,
+# works with ANY path Vercel forwards: /api/health, /health, /api/index, /)
 # ---------------------------------------------------------------------------
-app = FastAPI(title="CVForge API", version="1.0.0")
+app = FastAPI(title="CVForge API", version="1.1.0")
 
 _OUT = Path("/tmp/cvforge_api")
 _OUT.mkdir(parents=True, exist_ok=True)
+_LANDING = Path(__file__).parent / "landing.html"
 
 
 def _health():
@@ -439,53 +442,102 @@ def _themes():
     return {"ok": True, "themes": {k: v["name"] for k, v in THEMES.items()}}
 
 
-def _parse(body: dict):
+def _parse(text: str):
     try:
-        return {"ok": True, "cv": parse_cv(body.get("text", ""))}
+        return {"ok": True, "cv": parse_cv(text)}
     except Exception as e:  # noqa: BLE001
-        return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
+        return {"ok": False, "error": str(e)}
 
 
-def _parse_file(file: UploadFile):
-    suffix = Path(file.filename or "cv.txt").suffix.lower()
-    tmp = _OUT / f"upload_{uuid.uuid4().hex[:8]}{suffix}"
-    tmp.write_bytes(file.file.read())
-    try:
-        return {"ok": True, "cv": parse_cv(str(tmp)), "file_id": tmp.stem}
-    except Exception as e:  # noqa: BLE001
-        return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
-    finally:
-        tmp.unlink(missing_ok=True)
-
-
-def _generate(body: dict):
-    text = body.get("text", "")
+def _generate(text: str, theme: str | None, language: str):
     if not text.strip():
-        return JSONResponse({"ok": False, "error": "no CV text"}, status_code=400)
+        return {"ok": False, "error": "no CV text"}
     try:
         cv = parse_cv(text)
-        html_content = generate_portfolio_html(cv, body.get("theme") or None, body.get("language") or "en")
+        html_content = generate_portfolio_html(cv, theme, language)
         return {"ok": True, "html": html_content, "chars": len(html_content),
                 "domain": cv.get("domain", "generic"), "domain_label": cv.get("domain_label")}
     except Exception as e:  # noqa: BLE001
-        return JSONResponse({"ok": False, "error": str(e)}, status_code=500)
+        return {"ok": False, "error": str(e)}
 
 
-def _brain_private(tool: str):
-    return JSONResponse({"ok": False,
-                         "error": "BrainBridge is not available on the hosted demo (memory is private).",
-                         "hint": "Run BrainBridge locally: github.com/DeadEnde/BrainBridge"}, status_code=501)
+def _brain_private():
+    return {"ok": False,
+            "error": "BrainBridge is not available on the hosted demo (memory is private).",
+            "hint": "Run BrainBridge locally: github.com/DeadEnde/BrainBridge"}
 
 
-# routes — both variants, so it works whether Vercel strips the /api prefix or not
-for path in ("/api/health", "/health"):
-    app.add_api_route(path, _health, methods=["GET"])
-for path in ("/api/cv/themes", "/cv/themes"):
-    app.add_api_route(path, _themes, methods=["GET"])
-for path in ("/api/cv/parse", "/cv/parse"):
-    app.add_api_route(path, _parse, methods=["POST"])
-for path in ("/api/cv/parse_file", "/cv/parse_file"):
-    app.add_api_route(path, _parse_file, methods=["POST"])
-for path in ("/api/cv/generate", "/cv/generate"):
-    app.add_api_route(path, _generate, methods=["POST"])
-app.add_api_route("/api/brain/{tool}", _brain_private, methods=["GET", "POST"])
+def _landing():
+    try:
+        return Response(content=_LANDING.read_text(encoding="utf-8"), media_type="text/html")
+    except Exception:
+        return PlainTextResponse("CVForge API — see /api/health", media_type="text/plain")
+
+
+async def _dispatch(full_path: str, request: Request):
+    """Catch-all: whatever path Vercel forwards, dispatch manually."""
+    orig = full_path.strip("/")
+    path = orig
+
+    # normalize: strip leading api/index, api, or index prefixes
+    for prefix in ("api/index", "api", "index"):
+        if path == prefix or path.startswith(prefix + "/"):
+            path = path[len(prefix):].strip("/")
+            break
+
+    if request.method == "GET":
+        if path == "health":
+            return Response(content=json.dumps(_health()), media_type="application/json")
+        if path == "cv/themes":
+            return Response(content=json.dumps(_themes()), media_type="application/json")
+        if orig in ("", "index.html", "playground", "offline", "demo"):
+            return _landing()
+        if path == "":  # came from /api or /api/index
+            return Response(content=json.dumps(_health()), media_type="application/json")
+        return JSONResponse({"ok": False, "error": f"unknown route: /{orig}"}, status_code=404)
+
+    if request.method == "POST":
+        if path.startswith("brain/"):
+            return Response(content=json.dumps(_brain_private()),
+                            media_type="application/json", status_code=501)
+
+        # read body manually (JSON or multipart/file)
+        ct = request.headers.get("content-type", "")
+        text = ""
+        theme = None
+        language = "en"
+        try:
+            if "multipart" in ct or "application/x-www-form-urlencoded" in ct:
+                form = await request.form()
+                f = form.get("file")
+                if f is not None and hasattr(f, "filename"):
+                    tmp = _OUT / f"upload_{uuid.uuid4().hex[:8]}{Path(f.filename or 'cv.txt').suffix.lower()}"
+                    tmp.write_bytes(await f.read())
+                    try:
+                        text = tmp.read_text(encoding="utf-8", errors="ignore")
+                    finally:
+                        tmp.unlink(missing_ok=True)
+                else:
+                    text = str(form.get("text", "") or "")
+            else:
+                raw = await request.body()
+                data = json.loads(raw.decode("utf-8") or "{}") if raw else {}
+                text = data.get("text", "")
+                theme = data.get("theme")
+                language = data.get("language", "en")
+        except Exception:
+            text = text or ""
+
+        if path == "cv/parse":
+            return Response(content=json.dumps(_parse(text)), media_type="application/json")
+        if path == "cv/generate":
+            res = _generate(text, theme, language)
+            return Response(content=json.dumps(res, ensure_ascii=False), media_type="application/json")
+        if path == "":
+            return _landing()
+        return JSONResponse({"ok": False, "error": f"unknown POST route: /{orig}"}, status_code=404)
+
+    return JSONResponse({"ok": False, "error": "method not allowed"}, status_code=405)
+
+
+app.add_api_route("/{full_path:path}", _dispatch, methods=["GET", "POST"])

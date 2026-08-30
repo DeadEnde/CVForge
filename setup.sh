@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 echo "==> Installing Python dependencies..."
-pip3 install --break-system-packages --quiet -r requirements.txt fastapi uvicorn
+pip3 install --break-system-packages --quiet -r requirements-dev.txt fastapi uvicorn
 python3 -c "import cvforge, fastapi; print('✅ cvforge + fastapi OK')"
 echo ""
 echo "Done. Start:  ./run.sh   |  web UI:  python3 -m uvicorn playground.app:app --port 3500"
