@@ -100,6 +100,192 @@ THEMES: dict[str, dict] = {
         "gradient": ["#a78bfa", "#f472b6", "#38bdf8"],
         "font_style": "modern", "radius": "20px",
     },
+    "minimal": {
+        "name": "Snow Minimal",
+        "palette": {
+            "bg": "#f5f7fb",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.8)",
+            "line": "rgba(15,23,42,0.08)",
+            "accent": "#0ea5e9",
+            "accent2": "#6366f1",
+            "text": "#0f172a",
+            "muted": "#64748b",
+            "bt": "#ffffff"
+        },
+        "gradient": ["#0ea5e9", "#6366f1", "#8b5cf6"],
+        "font_style": "modern", "radius": "14px",
+    },
+    "classic": {
+        "name": "Paper & Ink",
+        "palette": {
+            "bg": "#f6f1e7",
+            "bg2": "#fdfaf3",
+            "card": "rgba(255,253,247,0.8)",
+            "line": "rgba(41,37,36,0.12)",
+            "accent": "#b45309",
+            "accent2": "#57534e",
+            "text": "#292524",
+            "muted": "#78716c",
+            "bt": "#ffffff"
+        },
+        "gradient": ["#c2410c", "#b45309", "#78716c"],
+        "font_style": "elegant", "radius": "6px",
+    },
+    "corporate": {
+        "name": "Corporate Pro",
+        "palette": {
+            "bg": "#f8fafc",
+            "bg2": "#ffffff",
+            "card": "rgba(255,255,255,0.85)",
+            "line": "rgba(15,23,42,0.08)",
+            "accent": "#1d4ed8",
+            "accent2": "#0ea5e9",
+            "text": "#0f172a",
+            "muted": "#64748b",
+            "bt": "#ffffff"
+        },
+        "gradient": ["#1d4ed8", "#3b82f6", "#0ea5e9"],
+        "font_style": "modern", "radius": "10px",
+    },
+    "pastel": {
+        "name": "Playful Pastel",
+        "palette": {
+            "bg": "#fdf2f8",
+            "bg2": "#fefce8",
+            "card": "rgba(255,255,255,0.75)",
+            "line": "rgba(76,29,149,0.10)",
+            "accent": "#ec4899",
+            "accent2": "#8b5cf6",
+            "text": "#3d3a5c",
+            "muted": "#8d84a8",
+            "bt": "#ffffff"
+        },
+        "gradient": ["#f472b6", "#a78bfa", "#60a5fa"],
+        "font_style": "modern", "radius": "24px",
+    },
+    "cyber": {
+        "name": "Neon Cyber",
+        "palette": {
+            "bg": "#050014",
+            "bg2": "#0a0220",
+            "card": "rgba(255,79,216,0.06)",
+            "line": "rgba(255,79,216,0.22)",
+            "accent": "#ff2fd6",
+            "accent2": "#00f0ff",
+            "text": "#f2eaff",
+            "muted": "#9d8fd0"
+        },
+        "gradient": ["#ff2fd6", "#00f0ff", "#7c3aed"],
+        "font_style": "mono-touch", "radius": "6px",
+    },
+    "retro": {
+        "name": "Retro Terminal",
+        "palette": {
+            "bg": "#0a0f0a",
+            "bg2": "#0d140d",
+            "card": "rgba(0,255,65,0.05)",
+            "line": "rgba(0,255,65,0.20)",
+            "accent": "#00ff41",
+            "accent2": "#39ff14",
+            "text": "#d9ffdd",
+            "muted": "#6da372"
+        },
+        "gradient": ["#00ff41", "#39ff14", "#4ade80"],
+        "font_style": "mono-touch", "radius": "4px",
+    },
+    "gold": {
+        "name": "Luxury Gold",
+        "palette": {
+            "bg": "#0c0a07",
+            "bg2": "#14110a",
+            "card": "rgba(255,255,255,0.04)",
+            "line": "rgba(234,179,8,0.25)",
+            "accent": "#eab308",
+            "accent2": "#fef3c7",
+            "text": "#faf6ea",
+            "muted": "#a89b84",
+            "bt": "#1a1206"
+        },
+        "gradient": ["#b8860b", "#eab308", "#fef3c7"],
+        "font_style": "elegant", "radius": "4px",
+    },
+    "glass": {
+        "name": "Liquid Glass",
+        "palette": {
+            "bg": "#070b1e",
+            "bg2": "#0b1030",
+            "card": "rgba(255,255,255,0.09)",
+            "line": "rgba(255,255,255,0.16)",
+            "accent": "#5eead4",
+            "accent2": "#a5b4fc",
+            "text": "#f0f4ff",
+            "muted": "#9aa7d8"
+        },
+        "gradient": ["#22d3ee", "#818cf8", "#f472b6"],
+        "font_style": "modern", "radius": "26px",
+    },
+    "noir": {
+        "name": "Noir Mono",
+        "palette": {
+            "bg": "#0a0a0a",
+            "bg2": "#121212",
+            "card": "rgba(255,255,255,0.06)",
+            "line": "rgba(255,255,255,0.14)",
+            "accent": "#ffffff",
+            "accent2": "#a3a3a3",
+            "text": "#f5f5f5",
+            "muted": "#9ca3af"
+        },
+        "gradient": ["#525252", "#737373", "#a3a3a3"],
+        "font_style": "modern", "radius": "2px",
+    },
+    "ocean": {
+        "name": "Deep Ocean",
+        "palette": {
+            "bg": "#041220",
+            "bg2": "#07223a",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(34,211,238,0.22)",
+            "accent": "#22d3ee",
+            "accent2": "#60a5fa",
+            "text": "#e8f6ff",
+            "muted": "#8fb0cc"
+        },
+        "gradient": ["#0ea5e9", "#22d3ee", "#3b82f6"],
+        "font_style": "modern", "radius": "22px",
+    },
+    "forest": {
+        "name": "Deep Forest",
+        "palette": {
+            "bg": "#07130c",
+            "bg2": "#0c1e13",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(74,222,128,0.20)",
+            "accent": "#34d399",
+            "accent2": "#a3e635",
+            "text": "#eaf7ee",
+            "muted": "#93b5a0"
+        },
+        "gradient": ["#10b981", "#84cc16", "#22c55e"],
+        "font_style": "modern", "radius": "18px",
+    },
+    "royal": {
+        "name": "Royal Violet",
+        "palette": {
+            "bg": "#0d0718",
+            "bg2": "#170b2e",
+            "card": "rgba(255,255,255,0.05)",
+            "line": "rgba(167,139,250,0.25)",
+            "accent": "#a78bfa",
+            "accent2": "#f0abfc",
+            "text": "#f4efff",
+            "muted": "#ab9bd8"
+        },
+        "gradient": ["#7c3aed", "#a78bfa", "#f0abfc"],
+        "font_style": "serif-touch", "radius": "22px",
+    },
+
 }
 
 EXTRA_THEMES = {

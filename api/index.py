@@ -250,6 +250,18 @@ THEMES = {
     "health": {"name": "Care", "pal": {"bg": "#0a0f12", "bg2": "#0f161b", "card": "rgba(255,255,255,0.05)", "accent": "#38bdf8", "accent2": "#f472b6", "text": "#eaf3f8", "muted": "#8aa0ad"}, "grad": ["#38bdf8", "#f472b6", "#a5b4fc"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "18px"},
     "engineer": {"name": "Builder", "pal": {"bg": "#0b0e10", "bg2": "#121619", "card": "rgba(255,255,255,0.05)", "accent": "#f97316", "accent2": "#fbbf24", "text": "#f2f4f6", "muted": "#96a0a8"}, "grad": ["#f97316", "#fbbf24", "#ef4444"], "font": "'Barlow Condensed','Arial Narrow',system-ui,sans-serif", "radius": "10px"},
     "generic": {"name": "Aurora", "pal": {"bg": "#0a0c14", "bg2": "#10131f", "card": "rgba(255,255,255,0.05)", "accent": "#a78bfa", "accent2": "#f472b6", "text": "#eef0f8", "muted": "#8d93a8"}, "grad": ["#a78bfa", "#f472b6", "#38bdf8"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "20px"},
+    "minimal": {"name": "Snow Minimal", "pal": {"bg": "#f5f7fb", "bg2": "#ffffff", "card": "rgba(255,255,255,0.8)", "line": "rgba(15,23,42,0.08)", "accent": "#0ea5e9", "accent2": "#6366f1", "text": "#0f172a", "muted": "#64748b", "bt": "#ffffff"}, "grad": ["#0ea5e9", "#6366f1", "#8b5cf6"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "14px"},
+    "classic": {"name": "Paper & Ink", "pal": {"bg": "#f6f1e7", "bg2": "#fdfaf3", "card": "rgba(255,253,247,0.8)", "line": "rgba(41,37,36,0.12)", "accent": "#b45309", "accent2": "#57534e", "text": "#292524", "muted": "#78716c", "bt": "#ffffff"}, "grad": ["#c2410c", "#b45309", "#78716c"], "font": "'Cormorant Garamond',Georgia,serif", "radius": "6px"},
+    "corporate": {"name": "Corporate Pro", "pal": {"bg": "#f8fafc", "bg2": "#ffffff", "card": "rgba(255,255,255,0.85)", "line": "rgba(15,23,42,0.08)", "accent": "#1d4ed8", "accent2": "#0ea5e9", "text": "#0f172a", "muted": "#64748b", "bt": "#ffffff"}, "grad": ["#1d4ed8", "#3b82f6", "#0ea5e9"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "10px"},
+    "pastel": {"name": "Playful Pastel", "pal": {"bg": "#fdf2f8", "bg2": "#fefce8", "card": "rgba(255,255,255,0.75)", "line": "rgba(76,29,149,0.10)", "accent": "#ec4899", "accent2": "#8b5cf6", "text": "#3d3a5c", "muted": "#8d84a8", "bt": "#ffffff"}, "grad": ["#f472b6", "#a78bfa", "#60a5fa"], "font": "'Quicksand','Nunito','Segoe UI',sans-serif", "radius": "24px"},
+    "cyber": {"name": "Neon Cyber", "pal": {"bg": "#050014", "bg2": "#0a0220", "card": "rgba(255,79,216,0.06)", "line": "rgba(255,79,216,0.22)", "accent": "#ff2fd6", "accent2": "#00f0ff", "text": "#f2eaff", "muted": "#9d8fd0"}, "grad": ["#ff2fd6", "#00f0ff", "#7c3aed"], "font": "'JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace", "radius": "6px"},
+    "retro": {"name": "Retro Terminal", "pal": {"bg": "#0a0f0a", "bg2": "#0d140d", "card": "rgba(0,255,65,0.05)", "line": "rgba(0,255,65,0.20)", "accent": "#00ff41", "accent2": "#39ff14", "text": "#d9ffdd", "muted": "#6da372"}, "grad": ["#00ff41", "#39ff14", "#4ade80"], "font": "'JetBrains Mono',ui-monospace,Menlo,monospace", "radius": "4px"},
+    "gold": {"name": "Luxury Gold", "pal": {"bg": "#0c0a07", "bg2": "#14110a", "card": "rgba(255,255,255,0.04)", "line": "rgba(234,179,8,0.25)", "accent": "#eab308", "accent2": "#fef3c7", "text": "#faf6ea", "muted": "#a89b84", "bt": "#1a1206"}, "grad": ["#b8860b", "#eab308", "#fef3c7"], "font": "'Playfair Display',Georgia,serif", "radius": "4px"},
+    "glass": {"name": "Liquid Glass", "pal": {"bg": "#070b1e", "bg2": "#0b1030", "card": "rgba(255,255,255,0.09)", "line": "rgba(255,255,255,0.16)", "accent": "#5eead4", "accent2": "#a5b4fc", "text": "#f0f4ff", "muted": "#9aa7d8"}, "grad": ["#22d3ee", "#818cf8", "#f472b6"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "26px"},
+    "noir": {"name": "Noir Mono", "pal": {"bg": "#0a0a0a", "bg2": "#121212", "card": "rgba(255,255,255,0.06)", "line": "rgba(255,255,255,0.14)", "accent": "#ffffff", "accent2": "#a3a3a3", "text": "#f5f5f5", "muted": "#9ca3af"}, "grad": ["#525252", "#737373", "#a3a3a3"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "2px"},
+    "ocean": {"name": "Deep Ocean", "pal": {"bg": "#041220", "bg2": "#07223a", "card": "rgba(255,255,255,0.05)", "line": "rgba(34,211,238,0.22)", "accent": "#22d3ee", "accent2": "#60a5fa", "text": "#e8f6ff", "muted": "#8fb0cc"}, "grad": ["#0ea5e9", "#22d3ee", "#3b82f6"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "22px"},
+    "forest": {"name": "Deep Forest", "pal": {"bg": "#07130c", "bg2": "#0c1e13", "card": "rgba(255,255,255,0.05)", "line": "rgba(74,222,128,0.20)", "accent": "#34d399", "accent2": "#a3e635", "text": "#eaf7ee", "muted": "#93b5a0"}, "grad": ["#10b981", "#84cc16", "#22c55e"], "font": "'Inter','Segoe UI',system-ui,sans-serif", "radius": "18px"},
+    "royal": {"name": "Royal Violet", "pal": {"bg": "#0d0718", "bg2": "#170b2e", "card": "rgba(255,255,255,0.05)", "line": "rgba(167,139,250,0.25)", "accent": "#a78bfa", "accent2": "#f0abfc", "text": "#f4efff", "muted": "#ab9bd8"}, "grad": ["#7c3aed", "#a78bfa", "#f0abfc"], "font": "'Playfair Display',Georgia,serif", "radius": "22px"},
 }
 
 
@@ -308,7 +320,7 @@ def generate_portfolio_html(cv: dict, theme_key: str | None = None, language: st
                     else (website if website.startswith("http") else f"https://{website}" if website else "#"))
 
     css = f"""
-:root{{--bg:{p['bg']};--card:{p['card']};--accent:{p['accent']};--accent2:{p['accent2']};--text:{p['text']};--muted:{p['muted']};--grad:{grad};--grad-len:{grad_len};--radius:{theme['radius']};--font:{theme['font']};}}
+:root{{--bg:{p['bg']};--card:{p['card']};--accent:{p['accent']};--accent2:{p['accent2']};--text:{p['text']};--muted:{p['muted']};--line:{p.get('line','rgba(255,255,255,0.09)')};--bt:{p.get('bt','#fff')};--grad:{grad};--grad-len:{grad_len};--radius:{theme['radius']};--font:{theme['font']};}}
 *{{margin:0;padding:0;box-sizing:border-box}}
 html{{scroll-behavior:smooth}}
 body{{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;overflow-x:hidden}}
@@ -320,41 +332,41 @@ a{{color:inherit;text-decoration:none}}
 .b3{{width:20vmax;height:20vmax;background:{g[2]};top:38%;inset-inline-start:55%;animation-delay:-15s;opacity:.22}}
 @keyframes drift{{to{{transform:translate(6vmax,4vmax) scale(1.12)}}}}
 .bg{{position:fixed;inset:0;z-index:-2;overflow:hidden}}
-.card,nav,.hero,footer{{background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius)}}
+.card,nav,.hero,footer{{background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:var(--radius)}}
 .wrap{{max-width:960px;margin:0 auto;padding:0 20px}}
 nav{{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:960px}}
 nav .wrap{{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}}
 .logo{{font-weight:800;font-size:1.05rem;background:var(--grad-len);-webkit-background-clip:text;background-clip:text;color:transparent}}
 .nav-links{{display:flex;gap:6px;flex-wrap:wrap}}
 .nav-links a{{padding:8px 13px;border-radius:999px;font-size:.85rem;color:var(--muted)}}
-.nav-links a:hover{{color:var(--text);background:rgba(255,255,255,.08)}}
+.nav-links a:hover{{color:var(--text);background:var(--card)}}
 .hero{{margin-top:26px;padding:52px 34px 46px;position:relative;overflow:hidden}}
-.avatar{{width:86px;height:86px;border-radius:26px;display:grid;place-items:center;font-size:1.9rem;font-weight:800;color:#fff;background:var(--grad);margin-bottom:18px;box-shadow:0 14px 40px {g[0]}55}}
+.avatar{{width:86px;height:86px;border-radius:26px;display:grid;place-items:center;font-size:1.9rem;font-weight:800;color:var(--bt);background:var(--grad);margin-bottom:18px;box-shadow:0 14px 40px {g[0]}55}}
 .hero h1{{font-size:clamp(2rem,6vw,3.2rem);line-height:1.12;letter-spacing:-.02em}}
 .hero h1 span{{background:var(--grad-len);-webkit-background-clip:text;background-clip:text;color:transparent}}
 .typed{{font-size:clamp(1rem,2.6vw,1.3rem);color:var(--accent2);min-height:1.6em;font-weight:600}}
 .hero p.lead{{margin-top:14px;color:var(--muted);max-width:640px}}
 .cta-row{{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}}
-.btn{{padding:13px 24px;border-radius:999px;font-weight:700;font-size:.92rem;transition:.25s;border:1px solid rgba(255,255,255,.14);display:inline-block}}
-.btn.primary{{background:var(--grad);color:#fff;box-shadow:0 10px 30px {g[0]}44}}
+.btn{{padding:13px 24px;border-radius:999px;font-weight:700;font-size:.92rem;transition:.25s;border:1px solid var(--line);display:inline-block}}
+.btn.primary{{background:var(--grad);color:var(--bt);box-shadow:0 10px 30px {g[0]}44}}
 .btn.primary:hover{{transform:translateY(-3px)}}
-.btn.ghost:hover{{background:rgba(255,255,255,.08)}}
+.btn.ghost:hover{{background:var(--card)}}
 section{{margin-top:56px}}
 h2{{font-size:clamp(1.4rem,4vw,2rem);margin-bottom:6px}}
 h2 .bar{{display:inline-block;width:46px;height:5px;border-radius:99px;background:var(--grad-len);margin-inline-start:6px;vertical-align:middle}}
 .sub{{color:var(--muted);margin-bottom:24px;font-size:.95rem}}
 .chips{{display:flex;flex-wrap:wrap;gap:9px}}
-.chip{{padding:8px 15px;border-radius:999px;font-size:.84rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}}
+.chip{{padding:8px 15px;border-radius:999px;font-size:.84rem;background:var(--card);border:1px solid var(--line)}}
 .chip-ghost{{background:transparent;color:var(--muted)}}
 .timeline{{position:relative;padding-inline-start:26px}}
 .timeline::before{{content:"";position:absolute;inset-block:6px;inset-inline-start:9px;width:2px;background:linear-gradient(var(--accent),transparent);opacity:.5}}
 .tl-item{{position:relative;margin-bottom:20px}}
 .tl-dot{{position:absolute;inset-inline-start:-26px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:grid;place-items:center;font-size:.55rem}}
-.tl-body{{padding:14px 18px;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius)}}
+.tl-body{{padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}}
 .tl-body h3{{font-size:1.02rem}}
 .tl-body p{{color:var(--muted);font-size:.88rem;margin-top:5px}}
 .gridP{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}}
-.cproj{{padding:22px;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);transition:.3s}}
+.cproj{{padding:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:.3s}}
 .cproj:hover{{transform:translateY(-5px);border-color:{g[0]}66}}
 .cproj h3{{font-size:1.05rem;margin-bottom:8px}}
 .cproj p{{color:var(--muted);font-size:.88rem}}
@@ -438,7 +450,7 @@ def _health():
 
 
 def _themes():
-    return {"ok": True, "themes": {k: v["name"] for k, v in THEMES.items()}}
+    return {"ok": True, "count": len(THEMES), "themes": {k: v["name"] for k, v in THEMES.items()}}
 
 
 def _parse(text: str):

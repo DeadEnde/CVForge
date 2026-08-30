@@ -121,6 +121,8 @@ def generate_portfolio_html(cv: dict, theme_key: str | None = None, language: st
 :root {{
   --bg:{p['bg']}; --bg2:{p['bg2']}; --card:{p['card']};
   --accent:{p['accent']}; --accent2:{p['accent2']}; --text:{p['text']}; --muted:{p['muted']};
+  --line:{p.get('line','rgba(255,255,255,0.09)')}; --bt:{p.get('bt','#fff')};
+  --line:{p.get('line','rgba(255,255,255,0.09)')}; --bt:{p.get('bt','#fff')};
   --grad:{gradient_css}; --grad-len:{gradient_css_len};
   --radius:{theme['radius']}; --font:{font};
 }}
@@ -139,7 +141,7 @@ a {{ color:inherit; text-decoration:none; }}
 @keyframes drift {{ to {{ transform:translate(6vmax,4vmax) scale(1.12); }} }}
 
 /* Glass card */
-.card, nav, .hero, footer {{ background:var(--card); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,.09); border-radius:var(--radius); }}
+.card, nav, .hero, footer {{ background:var(--card); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid var(--line); border-radius:var(--radius); }}
 .wrap {{ max-width:960px; margin:0 auto; padding:0 20px; }}
 
 /* Nav */
@@ -148,22 +150,22 @@ nav .wrap {{ display:flex; align-items:center; justify-content:space-between; pa
 .logo {{ font-weight:800; font-size:1.05rem; background:var(--grad-len); -webkit-background-clip:text; background-clip:text; color:transparent; }}
 .nav-links {{ display:flex; gap:6px; flex-wrap:wrap; }}
 .nav-links a {{ padding:8px 13px; border-radius:999px; font-size:.85rem; color:var(--muted); transition:.25s; }}
-.nav-links a:hover {{ color:var(--text); background:rgba(255,255,255,.08); }}
+.nav-links a:hover {{ color:var(--text); background:var(--card); }}
 
 /* Hero */
 .hero {{ margin-top:26px; padding:52px 34px 46px; position:relative; overflow:hidden; }}
 .hero::after {{ content:""; position:absolute; inset:-40%; background:radial-gradient(circle at 30% 20%, {grad[0]}22, transparent 45%),radial-gradient(circle at 80% 60%, {grad[1]}1e, transparent 40%); animation:pulse 9s ease-in-out infinite alternate; z-index:-1; }}
 @keyframes pulse {{ to {{ transform:scale(1.15) rotate(8deg); }} }}
-.avatar {{ width:86px; height:86px; border-radius:26px; display:grid; place-items:center; font-size:1.9rem; font-weight:800; color:#fff; background:var(--grad); margin-bottom:18px; box-shadow:0 14px 40px {grad[0]}55; }}
+.avatar {{ width:86px; height:86px; border-radius:26px; display:grid; place-items:center; font-size:1.9rem; font-weight:800; color:var(--bt); background:var(--grad); margin-bottom:18px; box-shadow:0 14px 40px {grad[0]}55; }}
 .hero h1 {{ font-size:clamp(2rem,6vw,3.2rem); line-height:1.12; letter-spacing:-.02em; }}
 .hero h1 span {{ background:var(--grad-len); -webkit-background-clip:text; background-clip:text; color:transparent; }}
 .typed {{ font-size:clamp(1rem,2.6vw,1.3rem); color:var(--accent2); min-height:1.6em; font-weight:600; }}
 .hero p.lead {{ margin-top:14px; color:var(--muted); max-width:640px; }}
 .cta-row {{ display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; }}
-.btn {{ padding:13px 24px; border-radius:999px; font-weight:700; font-size:.92rem; transition:.25s; border:1px solid rgba(255,255,255,.14); }}
-.btn.primary {{ background:var(--grad); color:#fff; box-shadow:0 10px 30px {grad[0]}44; }}
+.btn {{ padding:13px 24px; border-radius:999px; font-weight:700; font-size:.92rem; transition:.25s; border:1px solid var(--line); }}
+.btn.primary {{ background:var(--grad); color:var(--bt); box-shadow:0 10px 30px {grad[0]}44; }}
 .btn.primary:hover {{ transform:translateY(-3px); box-shadow:0 16px 40px {grad[0]}66; }}
-.btn.ghost:hover {{ background:rgba(255,255,255,.08); transform:translateY(-3px); }}
+.btn.ghost:hover {{ background:var(--card); transform:translateY(-3px); }}
 
 /* Sections */
 section {{ margin-top:56px; }}
@@ -173,7 +175,7 @@ h2 .bar {{ display:inline-block; width:46px; height:5px; border-radius:99px; bac
 
 /* Chips */
 .chips {{ display:flex; flex-wrap:wrap; gap:9px; }}
-.chip {{ padding:8px 15px; border-radius:999px; font-size:.84rem; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1); transition:.25s; cursor:default; }}
+.chip {{ padding:8px 15px; border-radius:999px; font-size:.84rem; background:var(--card); border:1px solid var(--line); transition:.25s; cursor:default; }}
 .chip:hover {{ transform:translateY(-2px); border-color:var(--accent); color:var(--accent2); }}
 .chip-ghost {{ background:transparent; color:var(--muted); }}
 
@@ -182,7 +184,7 @@ h2 .bar {{ display:inline-block; width:46px; height:5px; border-radius:99px; bac
 .timeline::before {{ content:""; position:absolute; inset-block:6px; inset-inline-start:9px; width:2px; background:linear-gradient(var(--accent),transparent); opacity:.5; }}
 .tl-item {{ position:relative; margin-bottom:20px; }}
 .tl-dot {{ position:absolute; inset-inline-start:-26px; top:2px; width:18px; height:18px; border-radius:50%; background:var(--bg); border:2px solid var(--accent); display:grid; place-items:center; font-size:.55rem; }}
-.tl-body {{ padding:14px 18px; background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); }}
+.tl-body {{ padding:14px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); }}
 .tl-body h3 {{ font-size:1.02rem; }}
 .tl-body p {{ color:var(--muted); font-size:.88rem; margin-top:5px; }}
 

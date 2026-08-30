@@ -230,6 +230,24 @@ footer{border-top:1px solid var(--line);padding:46px 0 60px;margin-top:20px}
 /* reveal on scroll */
 [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
 [data-reveal].shown{opacity:1;transform:none}
+
+/* ---------- template gallery ---------- */
+.tfilter{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.tfilter button{background:rgba(150,163,255,.07);border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:.8rem;padding:8px 16px;border-radius:99px;cursor:pointer;transition:.2s;font-family:var(--font)}
+.tfilter button:hover{color:var(--text);border-color:var(--line2)}
+.tfilter button.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(139,92,246,.35)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.tcard{background:rgba(10,12,34,.78);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative}
+.tcard:hover{transform:translateY(-5px);border-color:var(--line2);box-shadow:0 18px 50px rgba(0,0,0,.5),0 0 34px rgba(139,92,246,.14)}
+.tshot{position:relative;height:186px;overflow:hidden;background:#07091f;border-bottom:1px solid var(--line)}
+.tshot iframe{position:absolute;top:0;left:0;width:300%;height:560px;border:0;transform:scale(.3333);transform-origin:top left;pointer-events:none}
+.tshot .tshim{position:absolute;inset:0;display:grid;place-items:center;color:var(--dim);font-size:.78rem;background:repeating-linear-gradient(45deg,rgba(150,163,255,.04) 0 12px,transparent 12px 24px)}
+.tmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px}
+.tmeta .nm{font-weight:800;font-size:.92rem;letter-spacing:-.2px}
+.tmeta .tg{display:flex;gap:6px;margin-top:4px}
+.ttag{font-size:.64rem;padding:2px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.tmeta .use{padding:8px 14px;font-size:.78rem}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
   html{scroll-behavior:auto}
@@ -250,6 +268,7 @@ footer{border-top:1px solid var(--line);padding:46px 0 60px;margin-top:20px}
     <a class="logo" href="#"><span class="mark">⚒️</span><span><b>CV</b>Forge</span></a>
     <div class="links">
       <a href="#demo">Demo</a>
+      <a href="#templates">Templates</a>
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
       <a class="btn btn-primary" style="padding:9px 18px;font-size:.84rem" href="#demo">⚡ Try it</a>
@@ -273,7 +292,7 @@ footer{border-top:1px solid var(--line);padding:46px 0 60px;margin-top:20px}
       <a class="btn btn-ghost" href="https://github.com/DeadEnde/CVForge" target="_blank" rel="noopener">★ GitHub</a>
     </div>
     <div class="hero-meta">
-      <span><b>11</b> domain themes</span>
+      <span><b>23</b> templates</span>
       <span><b>AR</b> right-to-left</span>
       <span><b>PDF · DOCX · MD</b> import</span>
       <span><b>MCP</b> + hosted API</span>
@@ -379,6 +398,26 @@ Full-stack developer, 6 years building products people love.
   </div>
 </section>
 
+
+<!-- templates gallery -->
+<section id="templates">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <div class="sec-label">Template gallery</div>
+      <h2>Every template, live</h2>
+      <p>23 domain &amp; style templates rendered by the real engine — pick one, forge with your own CV.</p>
+    </div>
+    <div class="tfilter" id="tFilter">
+      <button class="on" data-f="all">All</button>
+      <button data-f="light">☀️ Light</button>
+      <button data-f="dark">🌙 Dark</button>
+      <button data-f="mono">⌨️ Mono</button>
+      <button data-f="serif">✒️ Serif</button>
+    </div>
+    <div class="tgrid" id="tGrid"></div>
+  </div>
+</section>
+
 <!-- features -->
 <section id="features">
   <div class="wrap">
@@ -444,49 +483,212 @@ Full-stack developer, 6 years building products people love.
 <script>
 /* ================= CVForge app (standalone) ================= */
 const $=id=>document.getElementById(id);
-const THEMES=[
-  {k:"developer",n:"Neon Code",c1:"#6366f1",c2:"#22d3ee"},
-  {k:"designer",n:"Studio Rose",c1:"#f472b6",c2:"#fb923c"},
-  {k:"photographer",n:"Golden Hour",c1:"#f59e0b",c2:"#fde68a"},
-  {k:"marketer",n:"Growth Green",c1:"#34d399",c2:"#4ade80"},
-  {k:"data",n:"Data Pulse",c1:"#818cf8",c2:"#2dd4bf"},
-  {k:"manager",n:"Executive",c1:"#f8fafc",c2:"#94a3b8"},
-  {k:"teacher",n:"Scholar",c1:"#60a5fa",c2:"#fbbf24"},
-  {k:"finance",n:"Fintech",c1:"#10b981",c2:"#facc15"},
-  {k:"health",n:"Care",c1:"#38bdf8",c2:"#f472b6"},
-  {k:"engineer",n:"Builder",c1:"#f97316",c2:"#fbbf24"},
-  {k:"generic",n:"Aurora",c1:"#a78bfa",c2:"#f472b6"}
-];
-const SAMPLE=`# Yassine El Amrani
-Software Engineer
-yassine@example.com | +212 6 12 34 56 78 | Casablanca
+const THEMES=[{k:"classic",n:"Paper & Ink",c1:"#b45309",c2:"#57534e",t:"light",f:"serif"},{k:"corporate",n:"Corporate Pro",c1:"#1d4ed8",c2:"#0ea5e9",t:"light",f:""},{k:"cyber",n:"Neon Cyber",c1:"#ff2fd6",c2:"#00f0ff",t:"dark",f:"mono"},{k:"data",n:"Data Pulse",c1:"#818cf8",c2:"#2dd4bf",t:"dark",f:"mono"},{k:"designer",n:"Studio Rose",c1:"#f472b6",c2:"#fb923c",t:"dark",f:"serif"},{k:"developer",n:"Neon Code",c1:"#6366f1",c2:"#22d3ee",t:"dark",f:"mono"},{k:"engineer",n:"Builder",c1:"#f97316",c2:"#fbbf24",t:"dark",f:""},{k:"finance",n:"Fintech",c1:"#10b981",c2:"#facc15",t:"dark",f:""},{k:"forest",n:"Deep Forest",c1:"#34d399",c2:"#a3e635",t:"dark",f:""},{k:"generic",n:"Aurora",c1:"#a78bfa",c2:"#f472b6",t:"dark",f:""},{k:"glass",n:"Liquid Glass",c1:"#5eead4",c2:"#a5b4fc",t:"dark",f:""},{k:"gold",n:"Luxury Gold",c1:"#eab308",c2:"#fef3c7",t:"dark",f:"serif"},{k:"health",n:"Care",c1:"#38bdf8",c2:"#f472b6",t:"dark",f:""},{k:"manager",n:"Executive",c1:"#f8fafc",c2:"#94a3b8",t:"dark",f:""},{k:"marketer",n:"Growth Green",c1:"#34d399",c2:"#4ade80",t:"dark",f:""},{k:"minimal",n:"Snow Minimal",c1:"#0ea5e9",c2:"#6366f1",t:"light",f:""},{k:"noir",n:"Noir Mono",c1:"#ffffff",c2:"#a3a3a3",t:"dark",f:""},{k:"ocean",n:"Deep Ocean",c1:"#22d3ee",c2:"#60a5fa",t:"dark",f:""},{k:"pastel",n:"Playful Pastel",c1:"#ec4899",c2:"#8b5cf6",t:"light",f:""},{k:"photographer",n:"Golden Hour",c1:"#f59e0b",c2:"#fde68a",t:"dark",f:"serif"},{k:"retro",n:"Retro Terminal",c1:"#00ff41",c2:"#39ff14",t:"dark",f:"mono"},{k:"royal",n:"Royal Violet",c1:"#a78bfa",c2:"#f0abfc",t:"dark",f:"serif"},{k:"teacher",n:"Scholar",c1:"#60a5fa",c2:"#fbbf24",t:"dark",f:""}];
+const ENGINE_THEMES={minimal:{name:"Snow Minimal",pal:{bg:"#f5f7fb",bg2:"#ffffff",card:"rgba(255,255,255,0.8)",line:"rgba(15,23,42,0.08)",accent:"#0ea5e9",accent2:"#6366f1",text:"#0f172a",muted:"#64748b",bt:"#ffffff"},grad:["#0ea5e9","#6366f1","#8b5cf6"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"14px"},classic:{name:"Paper & Ink",pal:{bg:"#f6f1e7",bg2:"#fdfaf3",card:"rgba(255,253,247,0.8)",line:"rgba(41,37,36,0.12)",accent:"#b45309",accent2:"#57534e",text:"#292524",muted:"#78716c",bt:"#ffffff"},grad:["#c2410c","#b45309","#78716c"],font:"'Cormorant Garamond',Georgia,serif",radius:"6px"},corporate:{name:"Corporate Pro",pal:{bg:"#f8fafc",bg2:"#ffffff",card:"rgba(255,255,255,0.85)",line:"rgba(15,23,42,0.08)",accent:"#1d4ed8",accent2:"#0ea5e9",text:"#0f172a",muted:"#64748b",bt:"#ffffff"},grad:["#1d4ed8","#3b82f6","#0ea5e9"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"10px"},pastel:{name:"Playful Pastel",pal:{bg:"#fdf2f8",bg2:"#fefce8",card:"rgba(255,255,255,0.75)",line:"rgba(76,29,149,0.10)",accent:"#ec4899",accent2:"#8b5cf6",text:"#3d3a5c",muted:"#8d84a8",bt:"#ffffff"},grad:["#f472b6","#a78bfa","#60a5fa"],font:"'Quicksand','Nunito','Segoe UI',sans-serif",radius:"24px"},cyber:{name:"Neon Cyber",pal:{bg:"#050014",bg2:"#0a0220",card:"rgba(255,79,216,0.06)",line:"rgba(255,79,216,0.22)",accent:"#ff2fd6",accent2:"#00f0ff",text:"#f2eaff",muted:"#9d8fd0",bt:"#fff"},grad:["#ff2fd6","#00f0ff","#7c3aed"],font:"'JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace",radius:"6px"},retro:{name:"Retro Terminal",pal:{bg:"#0a0f0a",bg2:"#0d140d",card:"rgba(0,255,65,0.05)",line:"rgba(0,255,65,0.20)",accent:"#00ff41",accent2:"#39ff14",text:"#d9ffdd",muted:"#6da372",bt:"#fff"},grad:["#00ff41","#39ff14","#4ade80"],font:"'JetBrains Mono',ui-monospace,Menlo,monospace",radius:"4px"},gold:{name:"Luxury Gold",pal:{bg:"#0c0a07",bg2:"#14110a",card:"rgba(255,255,255,0.04)",line:"rgba(234,179,8,0.25)",accent:"#eab308",accent2:"#fef3c7",text:"#faf6ea",muted:"#a89b84",bt:"#1a1206"},grad:["#b8860b","#eab308","#fef3c7"],font:"'Playfair Display',Georgia,serif",radius:"4px"},glass:{name:"Liquid Glass",pal:{bg:"#070b1e",bg2:"#0b1030",card:"rgba(255,255,255,0.09)",line:"rgba(255,255,255,0.16)",accent:"#5eead4",accent2:"#a5b4fc",text:"#f0f4ff",muted:"#9aa7d8",bt:"#fff"},grad:["#22d3ee","#818cf8","#f472b6"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"26px"},noir:{name:"Noir Mono",pal:{bg:"#0a0a0a",bg2:"#121212",card:"rgba(255,255,255,0.06)",line:"rgba(255,255,255,0.14)",accent:"#ffffff",accent2:"#a3a3a3",text:"#f5f5f5",muted:"#9ca3af",bt:"#fff"},grad:["#525252","#737373","#a3a3a3"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"2px"},ocean:{name:"Deep Ocean",pal:{bg:"#041220",bg2:"#07223a",card:"rgba(255,255,255,0.05)",line:"rgba(34,211,238,0.22)",accent:"#22d3ee",accent2:"#60a5fa",text:"#e8f6ff",muted:"#8fb0cc",bt:"#fff"},grad:["#0ea5e9","#22d3ee","#3b82f6"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"22px"},forest:{name:"Deep Forest",pal:{bg:"#07130c",bg2:"#0c1e13",card:"rgba(255,255,255,0.05)",line:"rgba(74,222,128,0.20)",accent:"#34d399",accent2:"#a3e635",text:"#eaf7ee",muted:"#93b5a0",bt:"#fff"},grad:["#10b981","#84cc16","#22c55e"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"18px"},royal:{name:"Royal Violet",pal:{bg:"#0d0718",bg2:"#170b2e",card:"rgba(255,255,255,0.05)",line:"rgba(167,139,250,0.25)",accent:"#a78bfa",accent2:"#f0abfc",text:"#f4efff",muted:"#ab9bd8",bt:"#fff"},grad:["#7c3aed","#a78bfa","#f0abfc"],font:"'Playfair Display',Georgia,serif",radius:"22px"},data:{name:"Data Pulse",pal:{bg:"#080a12",bg2:"#0c101e",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#818cf8",accent2:"#2dd4bf",text:"#e8ecf7",muted:"#8a92a8",bt:"#fff"},grad:["#6366f1","#2dd4bf","#0ea5e9"],font:"'JetBrains Mono',ui-monospace,Menlo,monospace",radius:"16px"},designer:{name:"Studio Rose",pal:{bg:"#140a12",bg2:"#1b0e18",card:"rgba(255,255,255,0.06)",line:"rgba(255,255,255,0.09)",accent:"#f472b6",accent2:"#fb923c",text:"#f8edf4",muted:"#a3909e",bt:"#fff"},grad:["#f472b6","#fb923c","#facc15"],font:"'Playfair Display',Georgia,'Times New Roman',serif",radius:"28px"},developer:{name:"Neon Code",pal:{bg:"#070b14",bg2:"#0b1220",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#6366f1",accent2:"#22d3ee",text:"#e7ecf6",muted:"#8b93a7",bt:"#fff"},grad:["#6366f1","#22d3ee","#a855f7"],font:"'JetBrains Mono','Fira Code',ui-monospace,Menlo,Consolas,monospace",radius:"18px"},engineer:{name:"Builder",pal:{bg:"#0b0e10",bg2:"#121619",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#f97316",accent2:"#fbbf24",text:"#f2f4f6",muted:"#96a0a8",bt:"#fff"},grad:["#f97316","#fbbf24","#ef4444"],font:"'Barlow Condensed','Arial Narrow',system-ui,sans-serif",radius:"10px"},finance:{name:"Fintech",pal:{bg:"#0a0f0c",bg2:"#101712",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#10b981",accent2:"#facc15",text:"#ecf5ef",muted:"#8fa295",bt:"#fff"},grad:["#10b981","#facc15","#34d399"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"12px"},generic:{name:"Aurora",pal:{bg:"#0a0c14",bg2:"#10131f",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#a78bfa",accent2:"#f472b6",text:"#eef0f8",muted:"#8d93a8",bt:"#fff"},grad:["#a78bfa","#f472b6","#38bdf8"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"20px"},health:{name:"Care",pal:{bg:"#0a0f12",bg2:"#0f161b",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#38bdf8",accent2:"#f472b6",text:"#eaf3f8",muted:"#8aa0ad",bt:"#fff"},grad:["#38bdf8","#f472b6","#a5b4fc"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"18px"},manager:{name:"Executive",pal:{bg:"#0c0d10",bg2:"#12141a",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#f8fafc",accent2:"#94a3b8",text:"#f1f5f9",muted:"#94a3b8",bt:"#fff"},grad:["#e2e8f0","#94a3b8","#475569"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"10px"},marketer:{name:"Growth Green",pal:{bg:"#06120e",bg2:"#0a1a14",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#34d399",accent2:"#4ade80",text:"#eaf6ef",muted:"#8aa79a",bt:"#fff"},grad:["#34d399","#4ade80","#a3e635"],font:"'Inter','Segoe UI',system-ui,sans-serif",radius:"20px"},photographer:{name:"Golden Hour",pal:{bg:"#0d0b09",bg2:"#14110c",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#f59e0b",accent2:"#fde68a",text:"#f5efe4",muted:"#9c9284",bt:"#fff"},grad:["#f59e0b","#fbbf24","#78716c"],font:"'Cormorant Garamond',Georgia,serif",radius:"12px"},teacher:{name:"Scholar",pal:{bg:"#0d1014",bg2:"#131820",card:"rgba(255,255,255,0.05)",line:"rgba(255,255,255,0.09)",accent:"#60a5fa",accent2:"#fbbf24",text:"#eef2f7",muted:"#8f9aad",bt:"#fff"},grad:["#60a5fa","#fbbf24","#34d399"],font:"Georgia,'Times New Roman',serif",radius:"14px"}};
+var DOMAIN_KW = {
+  developer:["developer","software","engineer","programmer","fullstack","full stack","backend","frontend","react","vue","angular","python","javascript","typescript","node","java","php","laravel","flutter","mobile developer","web developer","api","sql","devops","cloud","aws","android","ios","machine learning"],
+  designer:["designer","design","ui","ux","figma","photoshop","illustrator","branding","logo","graphic","visual","creative","typography","prototype","wireframe"],
+  photographer:["photograph","photographer","photo","videographer","camera","lighting","lightroom","retouch","studio","wedding","cinematograph","drone"],
+  marketer:["marketing","seo","sem","social media","content","growth","sales","copywriter","ads","campaign","brand manager","email marketing","crm","community manager","affiliate","e-commerce"],
+  data:["data analyst","data scientist","bi ","analytics","power bi","tableau","statistic","sql","pandas","excel","dashboard","etl","data engineer","machine learning","nlp"],
+  manager:["manager","director","project manager","product manager","product owner","chef de projet","scrum","agile","leadership","team lead","startup","consultant","business","operations","ceo","founder","entrepreneur"],
+  teacher:["teacher","professor","professeur","trainer","formation","education","coach","tutor","lecturer"],
+  finance:["accountant","comptable","finance","audit","financial","banking","banque","tax","fiscal","comptabilité","accounting","controller","investor"],
+  health:["doctor","nurse","infirmier","medecin","médecin","pharmac","dentist","physiotherap","therapist","clinician","caregiver"],
+  engineer:["civil engineer","mechanical engineer","electrical engineer","ingénieur","ingenieur","construction","architect","architecture","structural","mep","site engineer"]
+};
+var DOMAIN_LABEL = {developer:"Software Developer",designer:"Creative Designer",photographer:"Photographer",marketer:"Marketing & Growth",data:"Data Professional",manager:"Product / Project Manager",teacher:"Educator",finance:"Finance Professional",health:"Healthcare Professional",engineer:"Engineer",generic:"Professional"};
 
-## Summary
-Full-stack developer, 6 years building products people love.
+// ============ SAMPLE CV ============
+var SAMPLE = "# Yassine El Amrani\nFull-Stack Developer — React & Node.js\nyassine.elamrani@gmail.com | +212 6 12 34 56 78 | Casablanca, Morocco\ngithub.com/yassine-amrani\n\n## Summary\nFull-stack developer with 6+ years building web and mobile products for startups in Morocco and Europe. Passionate about clean architecture, pixel-perfect UI and shipping fast.\n\n## Skills\n- React, Next.js, TypeScript\n- Node.js, Express, NestJS\n- PostgreSQL, MongoDB, Redis\n- Flutter, React Native\n- Docker, AWS, CI/CD\n- Tailwind CSS, Framer Motion, Figma\n\n## Experience\n- Senior Full-Stack Developer — TechNova SA, Casablanca (2023 – Present)\n  - Led migration of a legacy ERP to React + NestJS serving 40k users\n  - Reduced page load time by 65% through SSR and caching strategy\n  - Mentored a team of 4 junior developers\n- Full-Stack Developer — Startup Factory, Rabat (2020 – 2023)\n  - Built 12+ client web apps (e-commerce, booking, dashboards)\n  - Implemented CI/CD pipelines with Docker and GitHub Actions\n- Junior Developer — Digital Agency, Casablanca (2019 – 2020)\n  - Developed responsive WordPress and custom PHP sites\n\n## Projects\n- AtlasPay — Payment dashboard for Moroccan merchants, 3k MAU\n- FarmLink — Marketplace web app connecting farmers to restaurants\n- DevChat — Open-source chat widget for dev blogs (1.2k GitHub stars)\n\n## Education\n- Engineering Degree in Computer Science — ENSIAS, Rabat (2015 – 2019)\n\n## Languages\n- Arabic (native), French (fluent), English (professional)";
 
-## Skills
-- Python, JavaScript, TypeScript, React, Node.js, SQL, Docker
+// ============ PARSER (client-side mirror of cvforge/cv_parser.py) ============
+var SECTION_RE = {experience:/^(experience|expérience|work history|parcours professionnel|employment|expériences)$/i,education:/^(education|formation|études|academic|diploma|degree)$/i,skills:/^(skills|compétences|technical skills|technologies|expertise)$/i,projects:/^(projects|projets|portfolio|réalisations|selected works)$/i,summary:/^(summary|profile|about|à propos|profil|objective|objectif)$/i,languages:/^(languages|langues)$/i};
+var DATE_RANGE = /\(\s*(?:19|20)\d{2}\s*[–—-]\s*(?:(?:19|20)\d{2}|present|présent|now|today|en\s+cours|aujourd)/i;
+var HEADER_RE = /^[A-ZÀ-Ý0-9][\w\s'’\-–—&/+,.()%£€:]{2,160}$/;
+var EMAIL_RE = /[\w.+-]+@[\w-]+\.[\w.-]+/;
+var PHONE_RE = /(?:\+?\d[\d\s.\-()]{7,})/;
 
-## Experience
-- Full-Stack Developer — StartupX (2021 – Present)
-  - Shipped 40+ features, scaled to 200K users
-- Backend Developer — SoftLab (2018 – 2021)
-  - Designed APIs serving 3M requests/day
+function parseCV(text){
+  var lines = text.split(/\r?\n/).map(function(l){return l.replace(/^#{1,6}\s*/,"").trim();}).filter(Boolean);
+  var name="", title="";
+  for (var i=0;i<Math.min(6,lines.length);i++){
+    var l=lines[i];
+    if(/^[A-Za-zÀ-ÿ'’\-]+( [A-Za-zÀ-ÿ'’\-]+){0,3}$/.test(l) && l.length<60 && !EMAIL_RE.test(l)){ name=l; break; }
+  }
+  for (var j=1;j<Math.min(9,lines.length);j++){
+    var m=lines[j];
+    if(m!==name && m.length<80 && !EMAIL_RE.test(m) && !PHONE_RE.test(m) && !/^(summary|profile|experience|skills|education|projects|about)/i.test(m)){ title=m; break; }
+  }
+  var joined=lines.join("\n");
+  var email=(joined.match(EMAIL_RE)||[""])[0];
+  var phone=(joined.match(PHONE_RE)||[""])[0]||"";
+  var website=(joined.match(/(?:https?:\/\/|www\.)[^\s"'<>]+|github\.com\/[\w-]+|linkedin\.com\/in\/[\w-]+/g)||[""])[0]||"";
+  var location="";
+  var locRe=/^[A-ZÀ-Ý][\w'’\- ]+,\s*[A-ZÀ-Ý][\w'’\- ]+$/;
+  for (var k=0;k<Math.min(10,lines.length);k++){
+    var segs=lines[k].split("|").map(function(s){return s.trim();});
+    for (var s2=0;s2<segs.length;s2++){
+      if(locRe.test(segs[s2]) && !EMAIL_RE.test(segs[s2]) && segs[s2].indexOf("http")<0){ location=segs[s2]; break; }
+    }
+    if(location) break;
+  }
+  // sections
+  var sections={}, current=null;
+  lines.forEach(function(raw){
+    var s=raw;
+    for (var key in SECTION_RE){ if(SECTION_RE[key].test(s)){ current=key; if(!sections[current]) sections[current]=[]; return; } }
+    if(current) sections[current].push(s);
+  });
+  Object.keys(sections).forEach(function(k){ sections[k]=sections[k].join("\n"); });
+  // skills
+  var skills=[];
+  (sections.skills||"").split("\n").forEach(function(line){
+    line=line.replace(/^[-•*·,;]\s*/,"").trim();
+    if(!line) return;
+    var parts=line.split(",").map(function(x){return x.trim();}).filter(Boolean);
+    if(parts.length>1 && !/^(C\+\+|C#)/.test(line) && line.indexOf("Visual Basic")<0){ parts.slice(0,8).forEach(function(p){skills.push(p);}); }
+    else skills.push(line);
+  });
+  skills=skills.slice(0,24);
+  // generic bullets parser
+  function bullets(block, eachBulletIsEntry){
+    var items=[], cur=null;
+    (block||"").split("\n").forEach(function(raw){
+      var line=raw.trim(); if(!line) return;
+      var isB=/^[-•*·◦▪]\s/.test(line);
+      var content=line.replace(/^[-•*·◦▪]\s*/,"").trim();
+      if(!content) return;
+      if(eachBulletIsEntry && isB){ items.push({title:content,details:[]}); return; }
+      var isHeader=DATE_RANGE.test(content) || (!isB && content.length<120 && HEADER_RE.test(content) && !/\.$/.test(content));
+      if(isHeader){ if(cur && (cur.title||cur.details.length)) items.push(cur); cur={title:content,details:[]}; return; }
+      if(isB){ if(!cur) cur={title:content,details:[]}; else cur.details.push(content); return; }
+      if(!cur) cur={title:content.slice(0,80),details:[]}; else cur.details.push(content);
+    });
+    if(cur && (cur.title||cur.details.length)) items.push(cur);
+    return items;
+  }
+  var experience=bullets(sections.experience,false);
+  var education=bullets(sections.education,false);
+  var projects=bullets(sections.projects,true);
+  var languages=[];(sections.languages||"").split("\n").forEach(function(l){ l=l.replace(/^[-•*·,]\s*/,"").trim(); if(l) languages.push(l); if(languages.length===1){ var lp=l.split(",").map(function(x){return x.trim();}).filter(Boolean); if(lp.length>1) languages=lp.slice(0,8);} });
+  var summary=(sections.summary||"").slice(0,600);
+  // domain
+  var tl=joined.toLowerCase(), best="generic", score=0;
+  for (var d in DOMAIN_KW){ var sc=0; DOMAIN_KW[d].forEach(function(kw){ if(tl.indexOf(kw)>=0) sc++; }); if(sc>score){score=sc;best=d;} }
+  return {name:name,title:title,email:email,phone:phone,location:location,website:website,summary:summary,skills:skills,experience:experience,education:education,projects:projects,languages:languages,domain:best,domain_label:DOMAIN_LABEL[best]||"Professional"};
+}
 
-## Projects
-- ShopFlow — AI-powered e-commerce dashboard (React, FastAPI, PostgreSQL)
-
-## Education
-- Computer Science, ENSA (2014 – 2018)`;
+// ============ RENDERER (mirror of cvforge/portfolio.py) ============
+function esc(v){ return String(v==null?"":v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function initials(n){ var p=(n||"CV").replace(/·/g," ").trim().split(/\s+/).filter(Boolean); if(!p.length) return "CV"; return (p[0][0]+(p[1]?p[1][0]:"")).toUpperCase(); }
+function renderPortfolio(cv, themeKey, lang){
+  var theme=ENGINE_THEMES[themeKey]||THEMES[cv.domain]||THEMES.generic;
+  var p=theme.pal,g=theme.grad;
+  var rtl=(lang||"en").toLowerCase().indexOf("ar")===0;
+  var line=p.line||"rgba(255,255,255,0.09)"; var bt=p.bt||"#fff";
+  var name=esc(cv.name||"Your Name"), title=esc(cv.title||cv.domain_label||"Professional");
+  var chips=(cv.skills||[]).map(function(s){return '<span class="chip">'+esc(s)+'</span>';}).join("");
+  var langChips=(cv.languages||[]).map(function(l){return '<span class="chip chip-ghost">'+esc(l)+'</span>';}).join("");
+  function tl(items,icon){
+    if(!items.length) return "";
+    return '<div class="timeline">'+items.map(function(it){
+      var dets=(it.details||[]).filter(function(d){return d&&d.trim();}).map(function(d){return "<p>"+esc(d)+"</p>";}).join("");
+      return '<div class="tl-item"><div class="tl-dot">'+icon+'</div><div class="tl-body"><h3>'+esc(it.title)+'</h3>'+dets+'</div></div>';
+    }).join("")+"</div>";
+  }
+  var expH=tl(cv.experience||[],"💼"), eduH=tl(cv.education||[],"🎓");
+  var proj=(cv.projects||[]).length?(cv.projects||[]).map(function(pj){return '<article class="cproj"><h3>'+esc(pj.title)+'</h3>'+(pj.details||[]).map(function(d){return "<p>"+esc(d)+"</p>";}).join("")+'</article>';}).join(""):'<p class="muted">Contact for a walkthrough of selected work.</p>';
+  var email=esc(cv.email||""), website=esc(cv.website||""), phone=esc(cv.phone||"");
+  var href=email?("mailto:"+email):(website?((website.indexOf("http")===0)?website:("https://"+website)):"#");
+  var summary=cv.summary?esc(cv.summary):(esc(cv.name||"Professional")+" — "+esc(cv.domain_label||"Professional")+" committed to quality, impact, and continuous growth.");
+  var grad="linear-gradient(135deg,"+g[0]+","+g[1]+","+g[2]+")";
+  var gradLen="linear-gradient(90deg,"+g[0]+","+g[1]+","+g[2]+")";
+  var dir=rtl?' dir="rtl"':"";
+  var words=JSON.stringify([title,cv.domain_label||"Professional","Available for new opportunities"]);
+  var css=`:root{--bg:${p.bg};--card:${p.card};--accent:${p.accent};--accent2:${p.accent2};--text:${p.text};--muted:${p.muted};--line:${line};--bt:${bt};--grad:${grad};--grad-len:${gradLen};--radius:${theme.radius};--font:${theme.font};}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--bt)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.3;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:42vmax;height:42vmax;background:${g[0]};top:-14vmax;inset-inline-start:-10vmax}
+.b2{width:34vmax;height:34vmax;background:${g[1]};bottom:-12vmax;inset-inline-end:-8vmax;animation-delay:-8s}
+.b3{width:20vmax;height:20vmax;background:${g[2]};top:38%;inset-inline-start:55%;animation-delay:-15s;opacity:.22}
+@keyframes drift{to{transform:translate(6vmax,4vmax) scale(1.12)}}
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden}
+.card,nav,.hero,footer{background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:var(--radius)}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:12px;z-index:50;margin:12px auto 0;max-width:960px}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.logo{font-weight:800;font-size:1.05rem;background:var(--grad-len);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:flex;gap:6px;flex-wrap:wrap}
+.nav-links a{padding:8px 13px;border-radius:999px;font-size:.85rem;color:var(--muted)}
+.nav-links a:hover{color:var(--text);background:var(--card)}
+.hero{margin-top:26px;padding:52px 34px 46px;position:relative;overflow:hidden}
+.avatar{width:86px;height:86px;border-radius:26px;display:grid;place-items:center;font-size:1.9rem;font-weight:800;color:var(--bt);background:var(--grad);margin-bottom:18px;box-shadow:0 14px 40px ${g[0]}55}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.12;letter-spacing:-.02em}
+.hero h1 span{background:var(--grad-len);-webkit-background-clip:text;background-clip:text;color:transparent}
+.typed{font-size:clamp(1rem,2.6vw,1.3rem);color:var(--accent2);min-height:1.6em;font-weight:600}
+.hero p.lead{margin-top:14px;color:var(--muted);max-width:640px}
+.cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+.btn{padding:13px 24px;border-radius:999px;font-weight:700;font-size:.92rem;transition:.25s;border:1px solid var(--line);display:inline-block}
+.btn.primary{background:var(--grad);color:var(--bt);box-shadow:0 10px 30px ${g[0]}44}
+.btn.primary:hover{transform:translateY(-3px)}
+.btn.ghost:hover{background:var(--card)}
+section{margin-top:56px}
+h2{font-size:clamp(1.4rem,4vw,2rem);margin-bottom:6px}
+h2 .bar{display:inline-block;width:46px;height:5px;border-radius:99px;background:var(--grad-len);margin-inline-start:6px;vertical-align:middle}
+.sub{color:var(--muted);margin-bottom:24px;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{padding:8px 15px;border-radius:999px;font-size:.84rem;background:var(--card);border:1px solid var(--line)}
+.chip-ghost{background:transparent;color:var(--muted)}
+.timeline{position:relative;padding-inline-start:26px}
+.timeline::before{content:"";position:absolute;inset-block:6px;inset-inline-start:9px;width:2px;background:linear-gradient(var(--accent),transparent);opacity:.5}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;inset-inline-start:-26px;top:2px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:grid;place-items:center;font-size:.55rem}
+.tl-body{padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius)}
+.tl-body h3{font-size:1.02rem}
+.tl-body p{color:var(--muted);font-size:.88rem;margin-top:5px}
+.gridP{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.cproj{padding:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:.3s}
+.cproj:hover{transform:translateY(-5px);border-color:${g[0]}66}
+.cproj h3{font-size:1.05rem;margin-bottom:8px}
+.cproj p{color:var(--muted);font-size:.88rem}
+.muted{color:var(--muted)}
+footer{margin:64px 0 30px;padding:36px 30px;text-align:center}
+.footer-big{font-size:clamp(1.3rem,4.6vw,2rem);font-weight:800}
+.footer-big a{background:var(--grad-len);-webkit-background-clip:text;background-clip:text;color:transparent}
+.meta{color:var(--muted);margin-top:10px;font-size:.9rem}
+.tiny{color:var(--muted);font-size:.76rem;margin-top:22px;opacity:.7}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+@media(max-width:600px){.hero{padding:36px 20px}.wrap{padding:0 14px}}`;
+  var html='<!DOCTYPE html><html lang="'+((rtl)?"ar":"en")+'"'+dir+'><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>'+name+' — '+title+'</title><style>'+css+'</style></head><body>';
+  html+='<div class="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>';
+  html+='<nav><div class="wrap"><a class="logo" href="#top">'+initials(cv.name)+'</a><div class="nav-links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#contact">Contact</a></div></div></nav>';
+  html+='<main class="wrap" id="top"><header class="hero"><div class="avatar">'+initials(cv.name)+'</div><h1>'+name+'<br><span>'+title+'</span></h1><div class="typed" id="typed">'+title+'</div><p class="lead">'+summary+'</p><div class="cta-row"><a class="btn primary" href="'+href+'">Get in touch</a><a class="btn ghost" href="#projects">See work ↓</a></div></header>';
+  html+='<section id="about"><h2>About <span class="bar"></span></h2><p class="sub">'+esc(cv.domain_label||"")+' · Focused on real impact.</p></section>';
+  html+='<section id="skills"><h2>Skills <span class="bar"></span></h2><div class="chips">'+ (chips||'<span class="chip">Core skills</span>') +'</div>'+(langChips?'<div class="chips" style="margin-top:16px">'+langChips+'</div>':"")+'</section>';
+  html+='<section id="experience"><h2>Experience <span class="bar"></span></h2>'+(expH||'<p class="sub">Detailed experience available on request.</p>')+'</section>';
+  html+=(eduH?'<section id="education"><h2>Education <span class="bar"></span></h2>'+eduH+'</section>':"");
+  html+='<section id="projects"><h2>Projects <span class="bar"></span></h2><div class="gridP">'+proj+'</div></section>';
+  html+='<footer id="contact"><div class="footer-big">'+(email?'<a href="mailto:'+email+'">'+email+'</a>':(website?'<a href="'+((website.indexOf("http")===0)?website:"https://"+website)+'">'+website+'</a>':"Let's work together"))+'</div><div class="meta">'+(cv.location?'<span>📍 '+esc(cv.location)+'</span>':"")+(phone?' <span>· 📞 '+phone+'</span>':"")+'</div><p class="tiny">Generated by <b>CVForge</b> · '+name+' · '+esc(cv.domain_label||"")+'</p></footer></main>';
+  html+='<script>(function(){var w='+words+';var el=document.getElementById("typed");var wi=0,ci=0,del=false;function t(){var s=w[wi]||"";el.textContent=s.slice(0,ci)+"▌";if(!del&&ci<s.length){ci++;setTimeout(t,55);}else if(!del){del=true;setTimeout(t,1500);}else if(ci>0){ci--;setTimeout(t,24);}else{del=false;wi=(wi+1)%w.length;setTimeout(t,300);}}if(el)t();var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12});document.querySelectorAll(".hero,section,footer").forEach(function(e){e.classList.add("reveal");io.observe(e);});})();<\/script>';
+  html+='</body></html>';
+  return html;
+}
 const state={lang:"en",theme:"",file:null,offline:false,lastHtml:null};
 
 /* ---- build theme cards ---- */
 THEMES.forEach((t,i)=>{
   const el=document.createElement("div");
-  el.className="theme-card"+(i===THEMES.length-1?" sel":"");
+  el.className="theme-card"+(t.k==="generic"?" sel":"");
   el.style.setProperty("--c1",t.c1);el.style.setProperty("--c2",t.c2);
   el.innerHTML=`<div class="in"><div class="nm">${t.n}</div><div class="dots"><i></i><i></i></div></div>`;
-  el.onclick=()=>{document.querySelectorAll(".theme-card").forEach(c=>c.classList.remove("sel"));el.classList.add("sel");state.theme=t.k;};
+  el.dataset.k=t.k;el.onclick=()=>selectTheme(t.k);
   $("themes").appendChild(el);
 });
 if(!state.theme) state.theme="generic";
@@ -560,6 +762,57 @@ function sparks(){
 }
 function fireArrow(){const a=$("arrow");a.classList.remove("fire");void a.offsetWidth;a.classList.add("fire");setTimeout(()=>a.classList.remove("fire"),1100);}
 
+
+/* ---- template gallery ---- */
+(function(){
+  const grid=$("tGrid");
+  const cvShort=parseCV(SAMPLE);
+  THEMES.forEach(t=>{
+    const card=document.createElement("div");
+    card.className="tcard";card.dataset.f=t.f||"";card.dataset.t=t.t;
+    const shot=document.createElement("div");shot.className="tshot";
+    const shim=document.createElement("div");shim.className="tshim";shim.textContent="rendering…";
+    const frame=document.createElement("iframe");frame.title=t.n+" preview";
+    shot.appendChild(frame);shot.appendChild(shim);
+    const meta=document.createElement("div");meta.className="tmeta";
+    meta.innerHTML=`<div><div class="nm">${t.n}</div><div class="tg"><span class="ttag">${t.t==="light"?"☀️ light":"🌙 dark"}</span>${t.f?`<span class="ttag">${t.f}</span>`:""}<span class="ttag">cvforge</span></div></div>`;
+    const use=document.createElement("button");use.className="btn btn-primary use";use.textContent="Use";
+    use.onclick=()=>{selectTheme(t.k);document.getElementById("demo").scrollIntoView({behavior:"smooth"});if($("cvText").value.trim())forge();else toast("✨ "+t.n+" selected — paste a CV & forge!");};
+    meta.appendChild(use);
+    card.appendChild(shot);card.appendChild(meta);
+    grid.appendChild(card);
+    const c=grid.lastChild;
+    c.dataset.key=t.k;
+  });
+  // lazy render previews
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const card=e.target, frame=card.querySelector("iframe"), shim=card.querySelector(".tshim");
+    if(frame.getAttribute("srcdoc"))return;
+    frame.srcdoc=renderPortfolio(cvShort,card.dataset.key,"en");
+    shim.style.display="none";
+    io.unobserve(card);
+  }),{rootMargin:"600px 0px"});
+  document.querySelectorAll(".tcard").forEach(c=>io.observe(c));
+  // filters
+  document.querySelectorAll("#tFilter button").forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll("#tFilter button").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+      const f=b.dataset.f;
+      document.querySelectorAll(".tcard").forEach(card=>{
+        const show=f==="all"||(f==="light"?card.dataset.t==="light":f==="dark"?card.dataset.t==="dark":card.dataset.f===f);
+        card.style.display=show?"":"none";
+      });
+    };
+  });
+})();
+function selectTheme(k){
+  state.theme=k;
+  document.querySelectorAll(".theme-card").forEach(c=>c.classList.toggle("sel",c.dataset.k===k));
+  const t=THEMES.find(x=>x.k===k);
+  if(t)toast("🎨 "+t.n+" selected");
+}
+
 /* ---- starfield ---- */
 (function(){
   const c=$("stars"),x=c.getContext("2d");let W,H,stars=[];
@@ -602,19 +855,6 @@ let toastT=null;
 function toast(m){$("toastMsg").textContent=m;$("toast").classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>$("toast").classList.remove("show"),2800);}
 
 /* ---- offline / api check ---- */
-const FALLBACK_HTML=`<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><style>
-body{margin:0;font-family:'Segoe UI',system-ui,sans-serif;background:#0a0c26;color:#eef1ff;display:grid;place-items:center;min-height:100vh}
-.w{max-width:560px;padding:44px;border:1px solid rgba(150,163,255,.25);border-radius:22px;background:linear-gradient(160deg,rgba(139,92,246,.14),rgba(5,6,26,.9));text-align:center;position:relative;overflow:hidden}
-.w::before{content:'';position:absolute;inset:-40%;background:conic-gradient(#5b8cff,#ff4fd8,#22d3ee,#5b8cff);opacity:.16;animation:r 6s linear infinite}
-@keyframes r{to{transform:rotate(360deg)}}
-h1{font-size:2rem;margin:14px 0 4px} .t{color:#22d3ee;font-weight:700;letter-spacing:3px;text-transform:uppercase;font-size:.78rem}
-.s{color:#9aa3cf;font-size:.95rem;margin:8px 0 22px;line-height:1.6}
-.chips span{display:inline-block;margin:4px;padding:7px 14px;border-radius:99px;background:rgba(150,163,255,.1);border:1px solid rgba(150,163,255,.25);font-size:.82rem;color:#cdd4ff}
-.b{display:inline-block;margin-top:24px;padding:11px 22px;border-radius:12px;background:linear-gradient(100deg,#5b8cff,#8b5cf6,#ff4fd8,#22d3ee);background-size:220% 100%;color:#fff;font-weight:800;animation:f 5s linear infinite}
-@keyframes f{to{background-position:220% 0}}
-</style></head><body><div class="w"><div style="font-size:3rem">⚒️</div><h1>CVForge Sample</h1><div class="t">Portfolio</div>
-<p class="s">Jane Doe — Software Engineer. This is the built-in sample shown when the API is not reachable (e.g. file preview). Open the live demo for real forging.</p>
-<div class="chips"><span>React</span><span>Node.js</span><span>SQL</span><span>Docker</span></div><br><div class="b">✨ Forged by CVForge</div></div></body></html>`;
 
 (async function boot(){
   try{

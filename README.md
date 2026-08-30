@@ -3,7 +3,7 @@
 # ⚒️ CVForge — paste a CV, get a stunning portfolio
 
 > CV (PDF / DOCX / Markdown / plain text) → a beautiful **one-page portfolio**,
-> themed to the person's domain. English **and Arabic (RTL)**.
+> themed to the person's domain. English **and Arabic (RTL)**. **23 templates** with a live gallery — clients can browse every theme rendered by the real engine.
 > One engine, three ways to use it: **MCP server**, **REST API** (Vercel-hosted),
 > and a **100% client-side offline playground**.
 
@@ -19,11 +19,12 @@ plus `prefers-reduced-motion` support.
 | | |
 |---|---|
 | **Smart parsing** | extracts name, contacts, skills, experience, projects, education — and auto-detects the domain |
-| **11 domain themes** | Neon Code, Studio Rose, Golden Hour, Growth Green, Data Pulse, Executive, Scholar, Fintech, Care, Builder, Aurora |
+| **23 templates** | 11 domain themes (Neon Code, Studio Rose, Golden Hour, Growth Green, Data Pulse, Executive, Scholar, Fintech, Care, Builder, Aurora) + 12 style themes (Snow Minimal, Paper & Ink, Corporate Pro, Playful Pastel, Neon Cyber, Retro Terminal, Luxury Gold, Liquid Glass, Noir Mono, Deep Ocean, Deep Forest, Royal Violet) |
 | **Arabic RTL** | `language: "ar"` → `html lang="ar" dir="rtl"`, full direction-aware layout |
 | **PDF / DOCX / MD / TXT** | server-side extraction (pypdf + python-docx) or client-side paste |
 | **Private by design** | it's your CV — run the engine locally; nothing is stored anywhere |
 | **Motion-first UI** | aurora blobs, typing hero, glowing laptop preview, sparkle "forge" animation |
+| **Template gallery** | every template rendered live client-side (23 real previews — no screenshots) |
 
 ## 🧰 Tools (MCP — 4)
 
@@ -32,7 +33,7 @@ plus `prefers-reduced-motion` support.
 | `parse_cv_tool(source)` | CV → structured JSON (name, contacts, skills, experience, projects, domain) |
 | `generate_portfolio_tool(cv, dir, theme, language)` | writes a self-contained `index.html` |
 | `portfolio_preview(cv, theme, language)` | returns HTML inline (preview / embed) |
-| `list_themes()` | all 11 design themes |
+| `list_themes()` | all 23 design templates |
 
 ## 🚀 Quick start (local)
 
