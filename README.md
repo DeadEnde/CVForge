@@ -3,7 +3,7 @@
 # ⚒️ CVForge — paste a CV, get a stunning portfolio
 
 > CV (PDF / DOCX / Markdown / plain text) → a beautiful **one-page portfolio**,
-> themed to the person's domain — **59 domains detected automatically**. English **and Arabic (RTL)**. **71 templates** with a live gallery — clients can browse every theme rendered by the real engine.
+> themed to the person's domain — **59 domains detected automatically**. English **and Arabic (RTL)**. **71 templates** with a live gallery — and **INFINITE DESIGNS**: every 🎲 click forges a brand-new design (8 layouts × 8 backgrounds × 5 type styles × shape, card & accent systems), while each template has its own modern signature design.
 > One engine, three ways to use it: **MCP server**, **REST API** (Vercel-hosted),
 > and a **100% client-side offline playground**.
 
@@ -20,6 +20,7 @@ plus `prefers-reduced-motion` support.
 |---|---|
 | **Smart parsing** | extracts name, contacts, skills, experience, projects, education — and auto-detects **59 domains** (AI, e-commerce, chef, lawyer, economist...) |
 | **71 templates** | every field: AI/ML, programming, cyber, cloud, game, blockchain, mobile, devops, robotics; economy, accounting, e-commerce, business, founder, sales, consulting, logistics, real estate, HR; health (doctor, psychology, nutrition, fitness, vet); creative (UX, interior, fashion, video, music, art, writing, journalism, translation, content, architecture); research/science/history; culinary, hospitality, tourism; trades, beauty, aviation, agriculture, social, government, legal |
+| **∞ Infinite designs** | procedural design engine: 8 layouts (split, hero, bento, editorial, terminal, glass, white, magazine) × 8 backgrounds (blobs, mesh, grid, dots, scan, waves, stripes, plain) × 5 fonts × shapes × cards × section accents. **🎲 New design** = fresh random seed; the same seed always reproduces the exact same design (`?t=<theme>&d=<seed>` shareable link, 🔗 copy button). Every template ships with its own signature design so the gallery shows 71 different looks |
 | **Arabic RTL** | `language: "ar"` → `html lang="ar" dir="rtl"`, full direction-aware layout |
 | **PDF / DOCX / MD / TXT** | server-side extraction (pypdf + python-docx) or client-side paste |
 | **Private by design** | it's your CV — run the engine locally; nothing is stored anywhere |
@@ -75,3 +76,22 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 *Built by [@DeadEnde](https://github.com/DeadEnde) · 2026 · made for people who work with AI*
+
+
+## 🎲 Infinite designs (seeds)
+
+Every CV render is produced by a **deterministic procedural design engine**:
+the pair `(theme, seed)` selects a full design — layout archetype, background
+treatment, typography, radius/shape language, card style and section accents —
+while the theme still drives the palette & gradient. Any seed = any design, so
+combinations are effectively infinite.
+
+- **`seed` omitted** → the template's *signature* design (stable: each of the 71
+  templates always shows its own modern look).
+- **`POST /api/cv/generate` with `seed`** → that exact design, reproducible on
+  any machine (Python engine in the API ≡ JS engine in the browser — parity
+  tested).
+- **🎲 New design** (landing) → random seed, new design every click.
+- **🔗 Copy design link** → `https://…/?t=ai&d=12345` opens that exact design.
+- The API response includes `design:{seed,layout,bg,font,accent,hero}` and the
+  page shows `design — #<seed> · <layout>`.

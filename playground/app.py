@@ -84,8 +84,12 @@ async def cv_generate(body: dict):
         return {"ok": False, "error": "no CV text"}
     try:
         cv = parse_cv(text)
-        html = generate_portfolio_html(cv, body.get("theme"), body.get("language", "en"))
+        html = generate_portfolio_html(cv, body.get("theme"), body.get("language", "en"), body.get("seed"))
+        from cvforge.design import design_spec as _ds
+        t = THEMES.get(body.get("theme") or cv.get("domain") or "generic", THEMES["generic"])
+        sp = _ds(t["name"], body.get("seed"))
         return {"ok": True, "html": html, "chars": len(html),
-                "domain": cv.get("domain", "generic"), "domain_label": cv.get("domain_label")}
+                "domain": cv.get("domain", "generic"), "domain_label": cv.get("domain_label"),
+                "design": {"seed": sp["seed"], "layout": sp["layout"], "bg": sp["bg"], "font": sp["font"]}}
     except Exception as e:  # noqa: BLE001
         return {"ok": False, "error": str(e)}

@@ -3,8 +3,8 @@
 ## Tiers
 | Tier | Price | What you get |
 |---|---|---|
-| **Free** | $0 | Local MCP runs, all 71 templates, offline playground |
-| **Pro** | **$15 / mo** | Hosted API, PDF/DOCX batch, custom fonts/themes, priority render |
+| **Free** | $0 | Local MCP runs, all 71 templates, ∞ infinite designs (seed links), offline playground |
+| **Pro** | **$15 / mo** | Hosted API, PDF/DOCX batch, custom fonts/themes, priority render, design-seed packs (`?t=&d=` branded links) |
 | **Agency / Team** | **$49 / mo** | White-label branding, 10 seats, API keys, template kits |
 
 One-time: **Starter Kit $29** (3 premium theme packs + template bundle, lifetime updates).
@@ -22,3 +22,4 @@ List free on mcp.so, Smithery, Glama, PulseMCP, Product Hunt.
 - Agency hook: "Portfolio sites cost $300–800. CVForge does it in one prompt."
 - Freelancer hook: "Your CV, everywhere it needs to look good."
 - RTL hook: Arabic/FR/EN pixel-perfect — rare, valued in MENA + Europe.
+- Infinite-design hook: "a brand-new portfolio design on every click — clients never see the same template twice" (seed links per client = white-label feel).
