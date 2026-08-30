@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.png" alt="CVForge" width="100%"></p>
+
 # CVForge — paste a CV, get a stunning portfolio (MCP + hosted API)
 
 > CV (PDF/DOCX/Markdown/text) → modern **one-page portfolio** with a design theme
