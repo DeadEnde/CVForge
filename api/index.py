@@ -1152,23 +1152,24 @@ def render_portfolio_html(cv: dict, theme: dict, language: str = "en", seed: int
     rtl = (language or "en").lower().startswith("ar")
     langattr, dirattr = ("ar", ' dir="rtl"') if rtl else ("en", "")
     typed = ""
+    obs = ("<script>(function(){var io=new IntersectionObserver(function(es){es.forEach(function(e){"
+           "if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});"
+           "document.querySelectorAll('.reveal').forEach(function(e){io.observe(e);});})();</script>")
+    typed = ""
     if spec["motion"]:
         w = _json.dumps(words, ensure_ascii=False)
         typed = ("<script>(function(){var w=" + w
                  + ";var el=document.querySelector('.typed');if(!el)return;var wi=0,ci=0,del=false;"
                  "function t(){var s=w[wi]||'';el.textContent=s.slice(0,ci)+'▌';"
                  "if(!del&&ci<s.length){ci++;setTimeout(t,55);}else if(!del){del=true;setTimeout(t,1500);}"
-                 "else if(ci>0){ci--;setTimeout(t,24);}else{del=false;wi=(wi+1)%w.length;setTimeout(t,300);}}t();"
-                 "var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)"
-                 "{e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});"
-                 "document.querySelectorAll('.reveal').forEach(function(e){io.observe(e);});})();</script>")
+                 "else if(ci>0){ci--;setTimeout(t,24);}else{del=false;wi=(wi+1)%w.length;setTimeout(t,300);}}t();})();</script>")
     grain = '<div class="grain"></div>' if spec["grain"] else ""
 
     return ('<!DOCTYPE html><html lang="' + langattr + '"' + dirattr + '><head><meta charset="UTF-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
             f'<title>{name} — {title}</title><style>{css}</style></head>'
             f'<body class="ls-{L} {"dark" if dark else "light"} bgbg-{spec["bg"]}">'
-            f'<div class="bg" aria-hidden="true">{_BG_HTML[spec["bg"]]}</div>{grain}{nav}{inner}{typed}</body></html>')
+            f'<div class="bg" aria-hidden="true">{_BG_HTML[spec["bg"]]}</div>{grain}{nav}{inner}{typed}{obs}</body></html>')
 
 
 # ----------------------------------------------------------------- CSS ---
